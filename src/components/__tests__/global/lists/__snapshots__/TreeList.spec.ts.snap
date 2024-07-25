@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TreeList > renders correct HTML structure based on props 1`] = `
+"<div data-v-0dc24891="" class="treelist">
+  <ul data-v-0dc24891="">
+    <li data-v-0dc24891=""><a data-v-0dc24891="" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">Parents #1</a>
+      <ul data-v-0dc24891="">
+        <li data-v-0dc24891=""><a data-v-0dc24891="" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">Children #1</a>
+          <ul data-v-0dc24891="">
+            <li data-v-0dc24891=""><a data-v-0dc24891="" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">GrandChildren #1</a>
+              <ul data-v-0dc24891="">
+                <li data-v-0dc24891=""><a data-v-0dc24891="" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">Items #1</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>"
+`;
