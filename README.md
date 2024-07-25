@@ -12,8 +12,15 @@
 
 ### 3. How to Use
 
-```
+```js
 npm install revuekitz
+```
+
+When importing components
+
+```js
+import 'revuekitz/dist/style.css' // Import styles
+import { BasicButton } from 'revuekitz'
 ```
 
 ### 4. UI Kitz
