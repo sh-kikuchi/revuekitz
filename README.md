@@ -1,4 +1,4 @@
-## Revuekiz
+## Revuekitz
 
 <small> Powered by Re:vue</small>
 
@@ -85,4 +85,4 @@ import { BasicButton } from 'revuekitz'
 
 ### 5. Sample Code
 
-- Please take a look at the `src/App.vue` file in this project.
+- [Please take a look this!](https://sh-revue.net/factories/components)
