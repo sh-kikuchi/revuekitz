@@ -85,7 +85,6 @@ const bindingClass = computed(() => {
 }
 
 .revuekitz-tab-panel > div {
-  padding: 20px;
   border: 1px dotted #ccc;
 }
 
