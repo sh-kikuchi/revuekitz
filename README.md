@@ -39,7 +39,7 @@ import { BasicButton } from 'revuekitz'
 - [ModalDialog](https://sh-revue.net/articles/vue/204_modal_dialog)
 - [PageTitle](https://sh-revue.net/articles/vue/205_page_title)
 - [TabPanel](https://sh-revue.net/articles/vue/206_tab_panel)
-- [ToolTip](https://sh-revue.net/articles/vue/207_tool_tip_text)
+- [ToolTip](https://sh-revue.net/articles/vue/207_tool_tip)
 
 #### Fields
 
@@ -48,7 +48,7 @@ import { BasicButton } from 'revuekitz'
 - [DateField](https://sh-revue.net/articles/vue/303_date_field)
 - [FileField](https://sh-revue.net/articles/vue/304_file_field)
 - [MoneyField](https://sh-revue.net/articles/vue/305_money_field)
-- [MultiLineField](https://sh-revue.net/articles/vue/306_multi_lines_field)
+- [MultiLineField](https://sh-revue.net/articles/vue/306_multi_line_field)
 - [NumberField](https://sh-revue.net/articles/vue/307_number_field)
 - [RadioField](https://sh-revue.net/articles/vue/308_radio_field)
 - [RangeField](https://sh-revue.net/articles/vue/309_range_field)
@@ -58,8 +58,8 @@ import { BasicButton } from 'revuekitz'
 
 #### Icons
 
-- [ImgIcon](https://sh-revue.net/articles/vue/401_ImgIcon)
-- [SvgIcon](https://sh-revue.net/articles/vue/402_SvgIcon)
+- [ImgIcon](https://sh-revue.net/articles/vue/401_img_icon)
+- [SvgIcon](https://sh-revue.net/articles/vue/402_svg_icon)
 
 #### Layouts
 
@@ -76,7 +76,7 @@ import { BasicButton } from 'revuekitz'
 - [AccordionMenu](https://sh-revue.net/articles/vue/601_accordion_menu)
 - [BasicList](https://sh-revue.net/articles/vue/602_basic_list)
 - [BreadcrumbList](https://sh-revue.net/articles/vue/603_breadcumb_list)
-- [PaginateList](https://sh-revue.net/articles/vue/604_paginate_navigation)
+- [PaginateList](https://sh-revue.net/articles/vue/604_paginate_list)
 - [TreeList](https://sh-revue.net/articles/vue/605_tree_list)
 
 #### Table
