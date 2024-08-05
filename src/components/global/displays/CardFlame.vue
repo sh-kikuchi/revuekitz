@@ -42,14 +42,22 @@ const bindingClass = computed(() => {
 </script>
 <template>
   <div :id="props.id" :class="bindingClass" :style="props.style">
-    <h2 class="revuekitz-card-title">{{ props.title }}</h2>
-    <h4 class="revuekitz-card-subtitle">{{ props.subtitle }}</h4>
+    <div class="revuekitz-card-title">{{ props.title }}</div>
+    <div class="revuekitz-card-subtitle">{{ props.subtitle }}</div>
     <div class="revuekitz-card-content">
       <slot></slot>
     </div>
   </div>
 </template>
 <style scoped>
+.revuekitz-card-title {
+  font-size: 22.5px;
+}
+
+.revuekitz-card-subtitle {
+  font-size: 15px;
+}
+
 .revuekitz-card {
   max-width: 100%;
   max-height: 100%;
