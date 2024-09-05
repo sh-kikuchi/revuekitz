@@ -60,20 +60,15 @@ const text2 = ref('text2')
 const numberValue = ref(100)
 const moneyValue = ref(50)
 const checkedItem = ref('')
+const checkBoxChecked = ref(false)
 const radioCheckedItem = ref('Option 1')
 const selectedItem = ref('A')
 const rangeValue = ref('')
 const rangeItems = ref(['Option 1', 'Option 2', 'Option 3'])
-
 const fileData = ref(null)
 const selectedColor = ref('')
 const dateValue = ref('')
 const toggleSwitchChecked = ref(false)
-
-const getFileData = (targetFile) => {
-  console.log(targetFile)
-  fileData.value = targetFile.name
-}
 /*======Fields:end=====*/
 
 /*======PaginateList:start=====*/
@@ -277,16 +272,18 @@ const tableItems = ref([
               style="color: red"
               :styleReset="false"
               name="check_box_field_name"
-              item="check-box-field-item"
               label="check-box-field Label"
               type="checkbox"
-              :isChecked="true"
               :isDisabled="false"
               :isReadonly="false"
-              v-model:checked="checkedItem"
+              item="check-box-field-item"
+              v-model:val="checkedItem"
+              :isChecked="checkBoxChecked"
+              v-model:checked="checkBoxChecked"
             />
           </div>
           <div>{{ checkedItem }}</div>
+          <div>{{ checkBoxChecked }}</div>
         </section>
         <section>
           <h3>ColorField</h3>
@@ -297,7 +294,7 @@ const tableItems = ref([
               style="border: 1px solid black"
               :styleReset="false"
               name="color_field_name"
-              v-model:selected-color="selectedColor"
+              v-model:val="selectedColor"
             />
           </div>
           <div>{{ selectedColor }}</div>
@@ -316,7 +313,7 @@ const tableItems = ref([
               maxlength="2024-07-26"
               :isDisabled="false"
               :isReadonly="false"
-              @fileData="dateValue"
+              v-model:val="dateValue"
             />
           </div>
           <div>{{ dateValue }}</div>
@@ -324,9 +321,9 @@ const tableItems = ref([
         <section>
           <h3>FileField</h3>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <FileField @fileData="getFileData" />
+            <FileField v-model:val="fileData" />
           </div>
-          <div>{{ fileData }}</div>
+          <div>{{ fileData ? fileData.name : null }}</div>
         </section>
         <section>
           <h3>MoneyField</h3>
@@ -340,7 +337,8 @@ const tableItems = ref([
               :max="100000"
               :isDisabled="false"
               :isReadonly="false"
-              v-model:money="moneyValue"
+              :money="moneyValue"
+              v-model:val="moneyValue"
             />
           </div>
           <div>{{ moneyValue }}</div>
@@ -353,7 +351,7 @@ const tableItems = ref([
               class="multi-lines-field-class"
               style="width: 300px"
               name="multi_lines_field_name"
-              valueName="textValue"
+              text="textValue"
               :isDisabled="false"
               :isReadonly="false"
               placeholder="placeholderText"
@@ -372,10 +370,11 @@ const tableItems = ref([
               :style="{ backgroundColor: '#f0f0f0', border: '1px solid #ccc' }"
               name="number_field_name"
               :min="0"
-              :max="100"
+              :max="7000"
               :isDisabled="false"
               :isReadonly="false"
-              v-model:number="numberValue"
+              :number="numberValue"
+              v-model:val="numberValue"
             />
           </div>
           <div>{{ numberValue }}</div>
@@ -392,7 +391,7 @@ const tableItems = ref([
               accentColor="red"
               :isDisabled="false"
               :isReadonly="false"
-              v-model:radio="radioCheckedItem"
+              v-model:val="radioCheckedItem"
             />
           </div>
           <div>{{ radioCheckedItem }}</div>
@@ -411,7 +410,7 @@ const tableItems = ref([
               :step="5"
               :isDisabled="false"
               :isReadonly="false"
-              v-model:range-value="rangeValue"
+              v-model:val="rangeValue"
             />
           </div>
           <div>{{ rangeValue }}</div>
@@ -419,7 +418,7 @@ const tableItems = ref([
         <section>
           <h3>SelectField</h3>
           <div>
-            <SelectField v-model:selected-item="selectedItem" />
+            <SelectField v-model:val="selectedItem" />
           </div>
           <div>{{ selectedItem }}</div>
         </section>
@@ -435,11 +434,12 @@ const tableItems = ref([
               :maxlength="10"
               :isDisabled="false"
               :isReadonly="false"
-              v-model:binding-value="text"
+              :text="text"
+              v-model:val="text"
               required
             />
           </div>
-          <div><TextField type="password" v-model:binding-value="text2" /></div>
+          <div><TextField type="password" :text="text2" v-model:val="text2" /></div>
           <div>{{ text }}</div>
           <div>{{ text2 }}</div>
         </section>
@@ -448,11 +448,7 @@ const tableItems = ref([
           <h3>ToggleSwitch</h3>
           <small>There are S, M, and L sizes available.</small>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <ToggleSwitch
-              size="L"
-              backgroundColor="red"
-              v-model:binding-value="toggleSwitchChecked"
-            />
+            <ToggleSwitch size="L" backgroundColor="red" v-model:val="toggleSwitchChecked" />
             <div>Checked：{{ toggleSwitchChecked }}</div>
           </div>
         </section>

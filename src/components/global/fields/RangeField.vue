@@ -59,11 +59,11 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:range-value'])
+const emit = defineEmits(['update:val'])
 
 const updateValue = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
-  emit('update:range-value', targetValue)
+  emit('update:val', targetValue)
 }
 </script>
 <template>

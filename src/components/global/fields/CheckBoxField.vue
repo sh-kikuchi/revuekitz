@@ -60,18 +60,19 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:checked'])
+const emit = defineEmits(['update:val', 'update:checked'])
 const updateValue = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
   itemChecked.value ? (itemChecked.value = false) : (itemChecked.value = true)
-  emit('update:checked', itemChecked.value ? (checkedItem.value = targetValue) : '')
+  emit('update:val', itemChecked.value ? (checkedItem.value = targetValue) : '')
+  emit('update:checked', itemChecked.value)
 }
 
 // mouted
 onMounted(() => {
   itemChecked.value = props.isChecked
 
-  emit('update:checked', itemChecked.value ? props.item : '')
+  emit('update:val', itemChecked.value ? props.item : '')
 })
 </script>
 <template>

@@ -40,7 +40,7 @@ describe('SelectField', () => {
     expect(selectElement.attributes('name')).toBe('')
   })
 
-  it('emits update:selectedItem event on change', async () => {
+  it('emits update:val event on change', async () => {
     const wrapper = mount(SelectField, {
       props: {
         items: [
@@ -54,8 +54,8 @@ describe('SelectField', () => {
     // Simulate selection change
     await wrapper.find('select').setValue('B')
 
-    // Check if update:selectedItem event is emitted with correct value
-    expect(wrapper.emitted('update:selectedItem')).toBeTruthy()
-    expect(wrapper.emitted('update:selectedItem')?.[0]).toEqual(['B'])
+    // Check if update:val event is emitted with correct value
+    expect(wrapper.emitted('update:val')).toBeTruthy()
+    expect(wrapper.emitted('update:val')?.[0]).toEqual(['B'])
   })
 })

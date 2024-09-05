@@ -20,7 +20,7 @@ describe('MultiLineField', () => {
     expect(wrapper.props('minlength')).toBe(0)
     expect(wrapper.props('rows')).toBe(5)
     expect(wrapper.props('cols')).toBe(30)
-    expect(wrapper.props('valueName')).toBe('')
+    expect(wrapper.props('text')).toBe('')
   })
 
   it('emits input event with updated value', async () => {
@@ -30,8 +30,8 @@ describe('MultiLineField', () => {
     await wrapper.find('textarea').setValue('Updated value')
 
     // Check if the emitted event is correct
-    expect(wrapper.emitted('update:valueName')).toBeTruthy()
-    const emittedEvent = wrapper.emitted('update:valueName')
+    expect(wrapper.emitted('update:val')).toBeTruthy()
+    const emittedEvent = wrapper.emitted('update:val')
     expect(emittedEvent).toBeTruthy()
     if (emittedEvent) {
       expect(emittedEvent[0]).toEqual(['Updated value'])

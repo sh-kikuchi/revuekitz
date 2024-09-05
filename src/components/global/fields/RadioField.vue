@@ -51,10 +51,10 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:radio'])
+const emit = defineEmits(['update:val'])
 const updateValue = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
-  emit('update:radio', (selectedItem.value = targetValue))
+  emit('update:val', (selectedItem.value = targetValue))
 }
 </script>
 <template>

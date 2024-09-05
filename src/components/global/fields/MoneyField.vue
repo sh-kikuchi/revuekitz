@@ -51,7 +51,7 @@ const bindingClass = computed(() => {
 })
 
 // emit
-const emit = defineEmits(['update:money'])
+const emit = defineEmits(['update:val'])
 const errorMessage = ref('')
 
 const updateValue = (event) => {
@@ -73,7 +73,7 @@ const updateValue = (event) => {
     errorMessage.value = ''
   }
 
-  emit('update:money', value)
+  emit('update:val', value)
 }
 
 // methods
@@ -99,7 +99,7 @@ const formatNumberToMoney = (targetValue) => {
       :value="formatNumberToMoney(props.money)"
       :readonly="props.isReadonly"
       :disabled="props.isDisabled"
-      @input="updateValue"
+      @change="updateValue"
       required="ture"
     />
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>

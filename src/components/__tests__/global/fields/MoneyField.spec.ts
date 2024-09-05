@@ -21,13 +21,13 @@ describe('MoneyField', () => {
     expect(input.element.value).toBe('1,000') // Verify that the money value is formatted correctly
   })
 
-  it('emits update:money event when value changes', async () => {
+  it('emits update:val event when value changes', async () => {
     const wrapper = mount(MoneyField)
     const input = wrapper.find('input')
     await input.setValue('2000') // Change the value of the input
 
-    expect(wrapper.emitted('update:money')).toBeTruthy() // Check that the update:money event was emitted
-    expect(wrapper.emitted('update:money')?.at(0)?.at(0)).toBe('2,000') // Verify that the emitted value is correct
+    expect(wrapper.emitted('update:val')).toBeTruthy() // Check that the update:val event was emitted
+    expect(wrapper.emitted('update:val')?.at(0)?.at(0)).toBe('2,000') // Verify that the emitted value is correct
   })
 
   // Additional test cases can be added here

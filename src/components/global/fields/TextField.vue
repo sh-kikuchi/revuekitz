@@ -23,7 +23,7 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  bindingValue: {
+  text: {
     type: String,
     default: ''
   },
@@ -60,10 +60,10 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:bindingValue'])
+const emit = defineEmits(['update:val'])
 const updateValue = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
-  emit('update:bindingValue', targetValue)
+  emit('update:val', targetValue)
 }
 </script>
 
@@ -74,7 +74,7 @@ const updateValue = (event: Event) => {
     :class="bindingClass"
     :style="props.style"
     :name="props.name"
-    :value="props.bindingValue"
+    :value="props.text"
     :minlength="props.minlength"
     :maxlength="props.maxlength"
     :readonly="props.isReadonly"

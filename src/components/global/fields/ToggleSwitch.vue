@@ -17,10 +17,10 @@ const props = defineProps({
 })
 
 //emit
-const emit = defineEmits(['update:bindingValue'])
+const emit = defineEmits(['update:val'])
 const updateValue = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).checked
-  emit('update:bindingValue', targetValue)
+  emit('update:val', targetValue)
 }
 
 // サイズに応じたスタイルクラスを計算

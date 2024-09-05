@@ -53,10 +53,10 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:dateValue'])
+const emit = defineEmits(['update:val'])
 const updateValue = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
-  emit('update:dateValue', targetValue)
+  emit('update:val', targetValue)
 }
 </script>
 

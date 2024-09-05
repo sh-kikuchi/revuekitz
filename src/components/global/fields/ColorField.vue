@@ -39,10 +39,10 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:selectedColor'])
+const emit = defineEmits(['update:val'])
 const setSelectedColor = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
-  emit('update:selectedColor', targetValue)
+  emit('update:val', targetValue)
 }
 </script>
 <template>

@@ -32,12 +32,12 @@ describe('DateField.vue', () => {
     expect(wrapper.attributes('style')).toBe('width: 200px;')
   })
 
-  it('emits update:dateValue when input changes', async () => {
+  it('emits update:val when input changes', async () => {
     const input = wrapper.find('input')
     await input.setValue('2024-07-31')
 
-    expect(wrapper.emitted()['update:dateValue']).toBeTruthy()
-    expect(wrapper.emitted()['update:dateValue'][0]).toEqual(['2024-07-31'])
+    expect(wrapper.emitted()['update:val']).toBeTruthy()
+    expect(wrapper.emitted()['update:val'][0]).toEqual(['2024-07-31'])
   })
 
   it('applies readonly and disabled styles when props are set', async () => {

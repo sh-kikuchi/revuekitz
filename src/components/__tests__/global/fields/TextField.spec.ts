@@ -9,7 +9,7 @@ describe('TextField', () => {
       class: 'testClass',
       style: 'color: red;',
       name: 'testName',
-      bindingValue: 'initialValue',
+      text: 'initialValue',
       minlength: 5,
       maxlength: 10,
       isDisabled: false,
@@ -36,7 +36,7 @@ describe('TextField', () => {
     expect(wrapper.find('input').element.value).toBe('initialValue')
 
     // Check if event was emitted
-    const emittedEvents = wrapper.emitted('update:bindingValue')
+    const emittedEvents = wrapper.emitted('update:val')
     if (emittedEvents) {
       expect(emittedEvents[0]).toEqual(['newValue'])
     }

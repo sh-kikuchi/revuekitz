@@ -18,8 +18,8 @@ describe('RangeField', () => {
 
     // Simulate change event
     await input.setValue('30') // Set value to 30
-    expect(wrapper.emitted('update:range-value')).toBeTruthy()
-    expect(wrapper.emitted('update:range-value')![0]).toEqual(['30'])
+    expect(wrapper.emitted('update:val')).toBeTruthy()
+    expect(wrapper.emitted('update:val')![0]).toEqual(['30'])
   })
 
   it('renders input range element with custom props', async () => {
@@ -52,6 +52,6 @@ describe('RangeField', () => {
 
     // Simulate change event
 
-    expect(wrapper.emitted('update:range-value')).toBeFalsy()
+    expect(wrapper.emitted('update:val')).toBeFalsy()
   })
 })

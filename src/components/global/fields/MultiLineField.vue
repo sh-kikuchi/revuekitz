@@ -49,7 +49,7 @@ const props = defineProps({
     type: Number,
     default: 30
   },
-  valueName: {
+  text: {
     type: String,
     default: ''
   }
@@ -64,11 +64,11 @@ const bindingClass = computed(() => {
   }
 })
 
-const emit = defineEmits(['update:valueName'])
+const emit = defineEmits(['update:val'])
 
 const updateValue = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
-  emit('update:valueName', targetValue)
+  emit('update:val', targetValue)
 }
 </script>
 <template>
@@ -78,7 +78,7 @@ const updateValue = (event: Event) => {
     :class="bindingClass"
     :name="props.name"
     :style="props.style"
-    :value="props.valueName"
+    :value="props.text"
     :disabled="props.isDisabled"
     :readonly="props.isReadonly"
     :maxlength="props.maxlength"
