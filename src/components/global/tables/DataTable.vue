@@ -2,6 +2,7 @@
 import { ref, reactive, computed } from 'vue'
 import PaginateList from '../lists/PaginateList.vue'
 import TextField from '../fields/TextField.vue'
+import CheckBoxField from '../fields/CheckBoxField.vue'
 
 const th = ref(null)
 const td = ref(null)
@@ -9,13 +10,17 @@ const td = ref(null)
 type State = {
   message: string
   search: string
-  items: []
+  items: Array<object>
+  selectedItems: Array<object>
+  allSelected: boolean // 全選択の状態を追跡
 }
 
 const state = reactive<State>({
   message: 'Search/Filter In TabPanelle',
   search: '',
-  items: []
+  items: [],
+  selectedItems: [], // 選択された行を追跡する配列
+  allSelected: false // 全選択の状態
 })
 
 const props = defineProps({
@@ -48,16 +53,12 @@ const props = defineProps({
 })
 
 const highLight = (text: string | number) => {
-  // If the text is a number, convert it to a string
   const searchText = typeof text === 'number' ? String(text) : text
-
-  // If the search word is empty or the text does not include the search word, return the text as is
   const searchWord = state.search.trim()
   if (!searchWord || !searchText.includes(searchWord)) {
     return searchText
   }
 
-  // Highlight the search word
   const re = new RegExp(searchWord, 'ig')
   return searchText.replace(re, function (search) {
     return '<span style="background-color:yellow;font-weight:bold">' + search + '</span>'
@@ -76,7 +77,7 @@ const sortDateDesc = (columnName: string) => {
 }
 
 const search_items = computed(() => {
-  let searchWord = state.search.trim()
+  const searchWord = state.search.trim()
   if (searchWord === '') return state.items
   return state.items.filter((item) => {
     const itemValues = Object.values(item)
@@ -84,20 +85,49 @@ const search_items = computed(() => {
   })
 })
 
+const emit = defineEmits(['update:val'])
+
+const toggleItemSelection = (item: object, isSelected: boolean) => {
+  if (isSelected) {
+    state.selectedItems.push(item) // 選択されたら追加
+  } else {
+    state.selectedItems = state.selectedItems.filter((i) => i !== item) // 解除されたら削除
+  }
+  emit('update:val', state.selectedItems)
+}
+
+// 全選択と全解除の切り替え
+const toggleSelectAll = (isChecked: boolean) => {
+  state.allSelected = isChecked
+  if (isChecked) {
+    state.selectedItems = [...state.items] // 全ての行を選択
+  } else {
+    state.selectedItems = [] // 全ての選択を解除
+  }
+  emit('update:val', state.selectedItems)
+}
+
 const getDispItems = (dispArray: []) => {
   state.items = dispArray
 }
 </script>
+
 <template>
   <div class="revuekitz-data-table">
     <div v-if="seach_mode" class="textfield-area">
       <label>Search</label>
-      <TextField v-model:binding-value="state.search" />
+      <TextField :text="state.search" v-model:val="state.search" />
     </div>
     <table>
       <thead>
         <tr>
-          <th ref="th" v-for="(header, headerIndex) in props.headers" :key="headerIndex">
+          <th>
+            <CheckBoxField
+              @change="toggleSelectAll(($event.target as HTMLInputElement).checked)"
+              :isChecked="state.allSelected"
+            />
+          </th>
+          <th v-for="(header, headerIndex) in props.headers" :key="headerIndex">
             {{ header }}
             <span @click="sortDateDesc(header as string)">▼</span>
             <span @click="sortDateAsc(header as string)">△</span>
@@ -105,7 +135,14 @@ const getDispItems = (dispArray: []) => {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="obj in search_items" :key="obj">
+        <tr v-for="(obj, index) in search_items" :key="index">
+          <td ref="td">
+            <input
+              type="checkbox"
+              :checked="state.selectedItems.includes(obj)"
+              @change="toggleItemSelection(obj, ($event.target as HTMLInputElement).checked)"
+            />
+          </td>
           <td ref="td" v-for="(val, valIndex) in obj" v-html="highLight(val)" :key="valIndex"></td>
         </tr>
       </tbody>
@@ -119,6 +156,7 @@ const getDispItems = (dispArray: []) => {
     </div>
   </div>
 </template>
+
 <style scoped>
 label {
   margin-right: 5px;
@@ -130,10 +168,6 @@ label {
 .revuekitz-data-table > table {
   width: max-content;
   border-collapse: collapse;
-}
-
-.revuekitz-data-table > table thead th {
-  min-width: 300px;
 }
 
 .revuekitz-data-table > table td,
