@@ -4,7 +4,6 @@ import PaginateList from '../lists/PaginateList.vue'
 import TextField from '../fields/TextField.vue'
 import CheckBoxField from '../fields/CheckBoxField.vue'
 
-const th = ref(null)
 const td = ref(null)
 
 type State = {
