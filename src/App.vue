@@ -123,6 +123,7 @@ const tableItems = ref([
   { date: '2024-01-04', title: 'Title 4', content: 'Content 4', author: 'Author 4' },
   { date: '2024-01-05', title: 'Title 5', content: 'Content 5', author: 'Author 5' }
 ])
+const targetData = ref([])
 </script>
 
 <template>
@@ -448,7 +449,12 @@ const tableItems = ref([
           <h3>ToggleSwitch</h3>
           <small>There are S, M, and L sizes available.</small>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <ToggleSwitch size="L" backgroundColor="red" v-model:val="toggleSwitchChecked" />
+            <ToggleSwitch
+              size="L"
+              backgroundColor="red"
+              :is-checked="true"
+              v-model:val="toggleSwitchChecked"
+            />
             <div>Checked：{{ toggleSwitchChecked }}</div>
           </div>
         </section>
@@ -644,8 +650,9 @@ const tableItems = ref([
             <DataTable
               :search_mode="true"
               :pagination_mode="true"
-              :headers="['Date', 'Title', 'Content', 'Author']"
+              :headers="['Date', 'Title', 'Content']"
               :items="tableItems"
+              v-model:val="targetData"
               steps="5"
             />
           </div>
