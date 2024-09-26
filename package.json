@@ -1,6 +1,6 @@
 {
   "name": "revuekitz",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "UI component library for Vue.js. I collected atomic and molecular level components based on atomic design.",
   "keywords": [
     "vue3",
