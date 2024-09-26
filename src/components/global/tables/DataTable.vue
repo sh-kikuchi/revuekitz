@@ -142,7 +142,12 @@ const getDispItems = (dispArray: []) => {
               @change="toggleItemSelection(obj, ($event.target as HTMLInputElement).checked)"
             />
           </td>
-          <td ref="td" v-for="(val, valIndex) in obj" v-html="highLight(val)" :key="valIndex"></td>
+          <td
+            v-for="(val, valIndex) in Object.values(obj)"
+            :key="valIndex"
+            v-html="highLight(val)"
+            v-show="valIndex < props.headers.length"
+          ></td>
         </tr>
       </tbody>
     </table>
