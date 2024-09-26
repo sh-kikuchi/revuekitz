@@ -10,7 +10,8 @@ describe('ToggleSwitch.vue', () => {
       props: {
         id: 'toggle-switch',
         backgroundColor: '#2196f3',
-        size: 'M'
+        size: 'M',
+        isChecked: true
       }
     })
   })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 
 const props = defineProps({
   id: {
@@ -13,14 +13,19 @@ const props = defineProps({
   size: {
     type: String,
     default: 'M'
+  },
+  isChecked: {
+    type: Boolean,
+    default: false
   }
 })
 
 //emit
+const targetValue = ref(props.isChecked)
 const emit = defineEmits(['update:val'])
 const updateValue = (event: Event) => {
-  const targetValue = (event.target as HTMLInputElement).checked
-  emit('update:val', targetValue)
+  targetValue.value = (event.target as HTMLInputElement).checked
+  emit('update:val', targetValue.value)
 }
 
 // サイズに応じたスタイルクラスを計算
@@ -66,11 +71,15 @@ const bindingStyle = computed(() => {
     height: height
   }
 })
+
+onMounted(() => {
+  emit('update:val', targetValue.value)
+})
 </script>
 
 <template>
   <label id="props.id" :class="bindingClass" for="toggle-switch">
-    <input id="toggle-switch" type="checkbox" @change="updateValue" />
+    <input id="toggle-switch" type="checkbox" :checked="props.isChecked" @change="updateValue" />
     <span class="slider round" :style="bindingStyle"></span>
   </label>
 </template>
