@@ -168,6 +168,10 @@ label {
 .revuekitz-data-table {
   position: relative;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .revuekitz-data-table > table {
   width: max-content;
