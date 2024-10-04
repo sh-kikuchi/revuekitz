@@ -11,15 +11,15 @@ type State = {
   search: string
   items: Array<object>
   selectedItems: Array<object>
-  allSelected: boolean // 全選択の状態を追跡
+  allSelected: boolean
 }
 
 const state = reactive<State>({
   message: 'Search/Filter In TabPanelle',
   search: '',
   items: [],
-  selectedItems: [], // 選択された行を追跡する配列
-  allSelected: false // 全選択の状態
+  selectedItems: [],
+  allSelected: false
 })
 
 const props = defineProps({
@@ -88,9 +88,9 @@ const emit = defineEmits(['update:val'])
 
 const toggleItemSelection = (item: object, isSelected: boolean) => {
   if (isSelected) {
-    state.selectedItems.push(item) // 選択されたら追加
+    state.selectedItems.push(item)
   } else {
-    state.selectedItems = state.selectedItems.filter((i) => i !== item) // 解除されたら削除
+    state.selectedItems = state.selectedItems.filter((i) => i !== item)
   }
   emit('update:val', state.selectedItems)
 }
@@ -99,9 +99,9 @@ const toggleItemSelection = (item: object, isSelected: boolean) => {
 const toggleSelectAll = (isChecked: boolean) => {
   state.allSelected = isChecked
   if (isChecked) {
-    state.selectedItems = [...state.items] // 全ての行を選択
+    state.selectedItems = [...state.items]
   } else {
-    state.selectedItems = [] // 全ての選択を解除
+    state.selectedItems = []
   }
   emit('update:val', state.selectedItems)
 }
@@ -128,8 +128,8 @@ const getDispItems = (dispArray: []) => {
           </th>
           <th v-for="(header, headerIndex) in props.headers" :key="headerIndex">
             {{ header }}
-            <span @click="sortDateDesc(header as string)">▼</span>
-            <span @click="sortDateAsc(header as string)">△</span>
+            <span class="sort-btn" @click="sortDateDesc(header as string)">▼</span>
+            <span class="sort-btn" @click="sortDateAsc(header as string)">△</span>
           </th>
         </tr>
       </thead>
@@ -174,24 +174,33 @@ label {
   align-items: center;
 }
 .revuekitz-data-table > table {
-  width: max-content;
+  min-width: 420px;
+  max-width: 860px;
   border-collapse: collapse;
 }
 
 .revuekitz-data-table > table td,
 th {
   text-align: left;
-  padding: 8px;
+  padding: 4px;
+  min-width: 40px;
+  max-width: 200px;
+  text-wrap: wrap;
 }
-
+.revuekitz-data-table > table th:first-child {
+  width: 40px;
+  max-width: 40px;
+  margin: 0 auto;
+}
 .revuekitz-data-table > table td {
   border-bottom: 1px solid #dddddd;
-  background-color: whitesmoke;
   font-size: 12px;
+  word-wrap: break-word;
 }
-.revuekitz-data-table > table th {
-  color: black;
-  background-color: #dddddd;
+
+.revuekitz-data-table > table tbody tr:nth-child(even),
+.revuekitz-data-table > table thead tr {
+  background-color: whitesmoke;
 }
 
 .revuekitz-data-table > .textfield-area {
@@ -201,5 +210,8 @@ th {
 .revuekitz-data-table > .pagination-area {
   display: flex;
   justify-content: center;
+}
+.sort-btn {
+  font-size: 10px;
 }
 </style>
