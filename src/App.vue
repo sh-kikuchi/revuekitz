@@ -53,6 +53,7 @@ import TreeList from './components/global/lists/TreeList.vue'
 
 // tables(1)
 import DataTable from './components/global/tables/DataTable.vue'
+import ToDoList from './components/global/lists/ToDoList.vue'
 
 /*======Fields:start=====*/
 const text = ref('text')
@@ -124,6 +125,11 @@ const tableItems = ref([
   { date: '2024-01-05', title: 'Title 5', content: 'Content 5', author: 'Author 5' }
 ])
 const targetData = ref([])
+
+const todos = ref([
+  { id: '1', title: 'Todo #1', value: 1, href: '#' },
+  { id: '2', title: 'Todo #2', value: 2 }
+])
 </script>
 
 <template>
@@ -564,6 +570,20 @@ const targetData = ref([])
               ]"
               @update:value="(value) => console.log(value)"
             />
+          </div>
+        </section>
+        <section>
+          <h2>Todo Lists</h2>
+          <div>
+            <ToDoList
+              id="toDoList"
+              class="todo-list-class"
+              :style="{ color: 'black' }"
+              :styleReset="false"
+              :items="todos"
+              v-model:vals="todos"
+            />
+            {{ todos }}
           </div>
         </section>
         <section>
