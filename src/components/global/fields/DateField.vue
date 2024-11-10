@@ -1,63 +1,45 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 
-//props
+// Props
 const props = defineProps({
-  id: {
-    type: String,
-    default: ''
-  },
-  class: {
-    type: String,
-    default: ''
-  },
-  name: {
-    type: String,
-    default: ''
-  },
-  style: {
-    type: [String, Object],
-    default: ''
-  },
-  styleReset: {
-    type: Boolean,
-    default: false
-  },
+  id: String,
+  class: String,
+  name: String,
+  style: [String, Object],
+  styleReset: Boolean,
+  date: String,
   type: {
     type: String,
     default: 'date'
   },
-  minlength: {
-    type: [String, Number]
-  },
-  maxlength: {
-    type: [String, Number]
-  },
-  isDisabled: {
-    type: Boolean,
-    default: false
-  },
-  isReadonly: {
-    type: Boolean,
-    default: false
-  }
+  minlength: [String, Number],
+  maxlength: [String, Number],
+  isDisabled: Boolean,
+  isReadonly: Boolean
 })
 
-//binding classes
+// Binding class
 const bindingClass = computed(() => {
-  if (props.styleReset == true) {
-    return props.class
-  } else {
-    return `revuekitz-date-field ${props.class} `
-  }
+  return props.styleReset ? props.class : `revuekitz-date-field ${props.class}`
 })
 
-//emit
+// Emit event
 const emit = defineEmits(['update:val'])
+const internalValue = ref(props.date)
+
 const updateValue = (event: Event) => {
-  const targetValue = (event.target as HTMLInputElement).value
-  emit('update:val', targetValue)
+  internalValue.value = (event.target as HTMLInputElement).value
+  emit('update:val', internalValue.value)
 }
+
+// Watch for prop changes
+watch(
+  () => props.date,
+  (newValue) => {
+    internalValue.value = newValue
+  }
+)
 </script>
 
 <template>
@@ -71,7 +53,8 @@ const updateValue = (event: Event) => {
     :max="props.maxlength"
     :readonly="props.isReadonly"
     :disabled="props.isDisabled"
-    @change="updateValue"
+    :value="internalValue"
+    @input="updateValue"
   />
 </template>
 

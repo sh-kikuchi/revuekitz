@@ -316,6 +316,7 @@ const todos = ref([
               style="border: 1px solid black"
               :styleReset="false"
               name="date_field_name"
+              date="2024-07-01"
               minlength="2024-07-01"
               maxlength="2024-07-26"
               :isDisabled="false"

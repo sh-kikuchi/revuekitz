@@ -48,6 +48,7 @@ import BasicList from './components/global/lists/BasicList.vue'
 import BreadcrumbList from './components/global/lists/BreadcrumbList.vue'
 import PaginateList from './components/global/lists/PaginateList.vue'
 import TreeList from './components/global/lists/TreeList.vue'
+import ToDoList from './components/global/lists/ToDoList.vue'
 
 // tables
 import DataTable from './components/global/tables/DataTable.vue'
@@ -89,7 +90,8 @@ const components = {
   BreadcrumbList,
   PaginateList,
   TreeList,
-  DataTable
+  DataTable,
+  ToDoList
 }
 
 export default {
@@ -137,5 +139,6 @@ export {
   ToolTip,
   ModalDialog,
   ImgIcon,
-  SvgIcon
+  SvgIcon,
+  ToDoList
 }
