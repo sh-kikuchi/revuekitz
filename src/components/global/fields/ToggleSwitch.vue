@@ -20,17 +20,15 @@ const props = defineProps({
   }
 })
 
-//emit
-const targetValue = ref(props.isChecked)
+const targetValue = ref(false)
 const emit = defineEmits(['update:val'])
 const updateValue = (event: Event) => {
   targetValue.value = (event.target as HTMLInputElement).checked
   emit('update:val', targetValue.value)
 }
 
-// サイズに応じたスタイルクラスを計算
 const bindingClass = computed(() => {
-  let targetSize: string = 'medium'
+  let targetSize = 'medium'
   switch (props.size) {
     case 'S':
       targetSize = 'small'
@@ -42,13 +40,12 @@ const bindingClass = computed(() => {
       targetSize = 'large'
       break
   }
-  return `revuekitz-toggle-switch ${targetSize} `
+  return `revuekitz-toggle-switch ${targetSize}`
 })
 
-// スタイルオブジェクトを計算
 const bindingStyle = computed(() => {
-  let width = '40px' // デフォルトの中間サイズ
-  let height = '25px' // デフォルトの中間サイズの高さ
+  let width = '40px'
+  let height = '25px'
 
   switch (props.size) {
     case 'S':
@@ -73,36 +70,39 @@ const bindingStyle = computed(() => {
 })
 
 onMounted(() => {
-  emit('update:val', targetValue.value)
+  targetValue.value = props.isChecked
 })
 </script>
 
 <template>
-  <label id="props.id" :class="bindingClass" for="toggle-switch">
-    <input id="toggle-switch" type="checkbox" :checked="props.isChecked" @change="updateValue" />
+  <label :id="props.id" :class="bindingClass">
+    <input type="checkbox" :checked="targetValue" @change="updateValue" />
     <span class="slider round" :style="bindingStyle"></span>
   </label>
 </template>
 
 <style scoped>
-/* トグルスイッチのスタイル */
 .revuekitz-toggle-switch {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 .revuekitz-toggle-switch input {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 1;
 }
 
-/* トグルスイッチの背景 */
 .slider {
   border-radius: 35px;
   transition: 0.4s;
   display: inline-block;
 }
 
-/* トグルがONのときのスライダーの位置 */
 .slider.round:before {
   position: absolute;
   content: '';
@@ -122,14 +122,14 @@ onMounted(() => {
   height: 18px;
   width: 18px;
   left: 4px;
-  bottom: 10px; /* 中サイズ用の位置調整 */
+  bottom: 10px;
 }
 
 .revuekitz-toggle-switch.large .slider.round:before {
   height: 26px;
   width: 26px;
   left: 5px;
-  bottom: 10px; /* 大サイズ用の位置調整 */
+  bottom: 10px;
 }
 
 .revuekitz-toggle-switch.small input:checked + .slider:before {

@@ -329,7 +329,7 @@ const todos = ref([
         <section>
           <h3>FileField</h3>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <FileField v-model:val="fileData" />
+            <FileField v-model:val="fileData">File</FileField>
           </div>
           <div>{{ fileData ? fileData.name : null }}</div>
         </section>
@@ -459,7 +459,7 @@ const todos = ref([
             <ToggleSwitch
               size="L"
               backgroundColor="red"
-              :is-checked="true"
+              :is-checked="toggleSwitchChecked"
               v-model:val="toggleSwitchChecked"
             />
             <div>Checked：{{ toggleSwitchChecked }}</div>
