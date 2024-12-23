@@ -2,8 +2,8 @@
 import SvgIcon from '../icons/SvgIcon.vue'
 const props = defineProps({
   to: {
-    type: String,
-    required: true,
+    type: [String, Object],
+    required: false,
     default: '/'
   },
   icon: {
