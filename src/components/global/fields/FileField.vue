@@ -67,7 +67,7 @@ const getFileData = () => {
       ref="preview"
       @change="getFileData"
     />
-    🖇ファイルを選択
+    <slot></slot>
   </label>
 </template>
 <style scoped>
