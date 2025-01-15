@@ -51,7 +51,10 @@ const props = defineProps({
   }
 })
 
-const highLight = (text: string | number) => {
+const highLight = (text: string | number | boolean) => {
+  if (typeof text === 'boolean') {
+    return
+  }
   const searchText = typeof text === 'number' ? String(text) : text
   const searchWord = state.search.trim()
   if (!searchWord || !searchText.includes(searchWord)) {
@@ -80,10 +83,16 @@ const search_items = computed(() => {
   if (searchWord === '') return state.items
   return state.items.filter((item) => {
     const itemValues = Object.values(item)
-    return itemValues.some((value) => typeof value === 'string' && value.includes(searchWord))
+    return itemValues.some((value) => {
+      const stringValue = value === true || value === false ? String(value) : value
+      return (
+        stringValue !== null &&
+        stringValue !== undefined &&
+        String(stringValue).includes(searchWord)
+      )
+    })
   })
 })
-
 const emit = defineEmits(['update:val'])
 
 const toggleItemSelection = (item: object, isSelected: boolean) => {
