@@ -11,7 +11,7 @@ describe('NumberField', () => {
         class: 'testClass',
         style: 'color: red;',
         name: 'testName',
-        number: number,
+        modelValue: number,
         min: 0,
         max: 100,
         isDisabled: true,

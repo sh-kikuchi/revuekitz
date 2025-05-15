@@ -34,7 +34,7 @@ const props = defineProps({
     type: String,
     default: '選択してください'
   },
-  selectedItem: {
+  modelValue: {
     type: String,
     default: 'A'
   },
@@ -58,10 +58,10 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:val'])
+const emit = defineEmits(['update:modelValue'])
 const updateValue = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
-  emit('update:val', (selectedItem.value = targetValue))
+  emit('update:modelValue', (selectedItem.value = targetValue))
 }
 </script>
 <template>

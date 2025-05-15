@@ -14,17 +14,17 @@ const props = defineProps({
     type: String,
     default: 'M'
   },
-  isChecked: {
+  modelValue: {
     type: Boolean,
     default: false
   }
 })
 
 const targetValue = ref(false)
-const emit = defineEmits(['update:val'])
+const emit = defineEmits(['update:modelValue'])
 const updateValue = (event: Event) => {
   targetValue.value = (event.target as HTMLInputElement).checked
-  emit('update:val', targetValue.value)
+  emit('update:modelValue', targetValue.value)
 }
 
 const bindingClass = computed(() => {
@@ -70,7 +70,7 @@ const bindingStyle = computed(() => {
 })
 
 onMounted(() => {
-  targetValue.value = props.isChecked
+  targetValue.value = props.modelValue
 })
 </script>
 

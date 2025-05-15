@@ -36,9 +36,13 @@ const props = defineProps({
     type: String,
     default: ''
   },
-  isChecked: {
+  checked: {
     type: Boolean,
     default: false
+  },
+  modelValue: {
+    type: String,
+    default: ''
   },
   isDisabled: {
     type: Boolean,
@@ -60,19 +64,20 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:val', 'update:checked'])
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void
+  (e: 'update:checked', value: boolean): void
+}>()
 const updateValue = (event: Event) => {
-  const targetValue = (event.target as HTMLInputElement).value
-  itemChecked.value ? (itemChecked.value = false) : (itemChecked.value = true)
-  emit('update:val', itemChecked.value ? (checkedItem.value = targetValue) : '')
-  emit('update:checked', itemChecked.value)
+  const target = event.target as HTMLInputElement
+  emit('update:modelValue', target.checked ? props.item : '')
+  emit('update:checked', target.checked)
 }
 
 // mouted
 onMounted(() => {
-  itemChecked.value = props.isChecked
-
-  emit('update:val', itemChecked.value ? props.item : '')
+  itemChecked.value = props.checked
+  emit('update:modelValue', itemChecked.value ? props.item : '')
 })
 </script>
 <template>

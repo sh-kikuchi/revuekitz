@@ -30,8 +30,8 @@ describe('MultiLineField', () => {
     await wrapper.find('textarea').setValue('Updated value')
 
     // Check if the emitted event is correct
-    expect(wrapper.emitted('update:val')).toBeTruthy()
-    const emittedEvent = wrapper.emitted('update:val')
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+    const emittedEvent = wrapper.emitted('update:modelValue')
     expect(emittedEvent).toBeTruthy()
     if (emittedEvent) {
       expect(emittedEvent[0]).toEqual(['Updated value'])

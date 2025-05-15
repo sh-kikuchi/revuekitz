@@ -31,7 +31,7 @@ describe('RadioField', () => {
     expect(radioInputs[0].attributes('readonly')).toBe(undefined)
   })
 
-  it('emits update:val event on change', async () => {
+  it('emits update:modelValue event on change', async () => {
     const wrapper = mount(RadioField, {
       props: {
         items: ['Option 1', 'Option 2', 'Option 3']
@@ -42,8 +42,8 @@ describe('RadioField', () => {
     const radioInputs = wrapper.findAll('input[type="radio"]')
     await radioInputs[1].trigger('change')
 
-    // Check if update:val event is emitted with correct value
-    expect(wrapper.emitted('update:val')).toBeTruthy()
-    expect(wrapper.emitted('update:val')?.at(0)).toEqual(['Option 2'])
+    // Check if update:modelValue event is emitted with correct value
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+    expect(wrapper.emitted('update:modelValue')?.at(0)).toEqual(['Option 2'])
   })
 })

@@ -6,8 +6,6 @@ describe('LinkButton.vue', () => {
   it('renders button with default props', () => {
     const wrapper = mount(LinkButton)
 
-    console.log(wrapper.find('button'))
-
     // Asserts
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.find('button').attributes('class')).toContain('button')

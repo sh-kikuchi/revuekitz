@@ -61,15 +61,16 @@ const text2 = ref('text2')
 const numberValue = ref(100)
 const moneyValue = ref(50)
 const checkedItem = ref('')
-const checkBoxChecked = ref(false)
+const checkBoxChecked = ref(true)
 const radioCheckedItem = ref('Option 1')
 const selectedItem = ref('A')
-const rangeValue = ref('')
+const rangeValue = ref(123)
 const rangeItems = ref(['Option 1', 'Option 2', 'Option 3'])
 const fileData = ref(null)
-const selectedColor = ref('')
-const dateValue = ref('')
+const selectedColor = ref('#444')
+const dateValue = ref('2024-04-03')
 const toggleSwitchChecked = ref(false)
+const longTextValue = ref('long text \n test')
 /*======Fields:end=====*/
 
 /*======PaginateList:start=====*/
@@ -284,13 +285,11 @@ const todos = ref([
               :isDisabled="false"
               :isReadonly="false"
               item="check-box-field-item"
-              v-model:val="checkedItem"
-              :isChecked="checkBoxChecked"
+              v-model="checkedItem"
               v-model:checked="checkBoxChecked"
             />
           </div>
-          <div>{{ checkedItem }}</div>
-          <div>{{ checkBoxChecked }}</div>
+          <div>{{ checkedItem }}{{ checkBoxChecked }}</div>
         </section>
         <section>
           <h3>ColorField</h3>
@@ -299,9 +298,9 @@ const todos = ref([
               id="colorFieldId"
               class="color-field-class"
               style="border: 1px solid black"
-              :styleReset="false"
               name="color_field_name"
-              v-model:val="selectedColor"
+              v-model="selectedColor"
+              :styleReset="false"
             />
           </div>
           <div>{{ selectedColor }}</div>
@@ -316,12 +315,11 @@ const todos = ref([
               style="border: 1px solid black"
               :styleReset="false"
               name="date_field_name"
-              date="2024-07-01"
               minlength="2024-07-01"
               maxlength="2024-07-26"
               :isDisabled="false"
               :isReadonly="false"
-              v-model:val="dateValue"
+              v-model="dateValue"
             />
           </div>
           <div>{{ dateValue }}</div>
@@ -329,7 +327,7 @@ const todos = ref([
         <section>
           <h3>FileField</h3>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <FileField v-model:val="fileData">File</FileField>
+            <FileField v-model="fileData">File</FileField>
           </div>
           <div>{{ fileData ? fileData.name : null }}</div>
         </section>
@@ -345,8 +343,7 @@ const todos = ref([
               :max="100000"
               :isDisabled="false"
               :isReadonly="false"
-              :money="moneyValue"
-              v-model:val="moneyValue"
+              v-model="moneyValue"
             />
           </div>
           <div>{{ moneyValue }}</div>
@@ -359,7 +356,7 @@ const todos = ref([
               class="multi-lines-field-class"
               style="width: 300px"
               name="multi_lines_field_name"
-              text="textValue"
+              v-model="longTextValue"
               :isDisabled="false"
               :isReadonly="false"
               placeholder="placeholderText"
@@ -367,6 +364,7 @@ const todos = ref([
               :rows="3"
               :cols="30"
             />
+            <div>{{ longTextValue }}</div>
           </div>
         </section>
         <section>
@@ -381,8 +379,7 @@ const todos = ref([
               :max="7000"
               :isDisabled="false"
               :isReadonly="false"
-              :number="numberValue"
-              v-model:val="numberValue"
+              v-model="numberValue"
             />
           </div>
           <div>{{ numberValue }}</div>
@@ -399,7 +396,7 @@ const todos = ref([
               accentColor="red"
               :isDisabled="false"
               :isReadonly="false"
-              v-model:val="radioCheckedItem"
+              v-model="radioCheckedItem"
             />
           </div>
           <div>{{ radioCheckedItem }}</div>
@@ -412,13 +409,12 @@ const todos = ref([
               class="range-field-class"
               style="width: 300px"
               name="range_field_name"
-              :initValue="50"
               :min="0"
-              :max="100"
+              :max="500"
               :step="5"
               :isDisabled="false"
               :isReadonly="false"
-              v-model:val="rangeValue"
+              v-model="rangeValue"
             />
           </div>
           <div>{{ rangeValue }}</div>
@@ -426,7 +422,7 @@ const todos = ref([
         <section>
           <h3>SelectField</h3>
           <div>
-            <SelectField v-model:val="selectedItem" />
+            <SelectField v-model="selectedItem" />
           </div>
           <div>{{ selectedItem }}</div>
         </section>
@@ -442,12 +438,11 @@ const todos = ref([
               :maxlength="10"
               :isDisabled="false"
               :isReadonly="false"
-              :text="text"
-              v-model:val="text"
+              v-model="text"
               required
             />
           </div>
-          <div><TextField type="password" :text="text2" v-model:val="text2" /></div>
+          <div><TextField type="password" :text="text2" v-model="text2" /></div>
           <div>{{ text }}</div>
           <div>{{ text2 }}</div>
         </section>
@@ -456,12 +451,7 @@ const todos = ref([
           <h3>ToggleSwitch</h3>
           <small>There are S, M, and L sizes available.</small>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <ToggleSwitch
-              size="L"
-              backgroundColor="red"
-              :is-checked="toggleSwitchChecked"
-              v-model:val="toggleSwitchChecked"
-            />
+            <ToggleSwitch size="L" backgroundColor="red" v-model="toggleSwitchChecked" />
             <div>Checked：{{ toggleSwitchChecked }}</div>
           </div>
         </section>
@@ -581,8 +571,7 @@ const todos = ref([
               class="todo-list-class"
               :style="{ color: 'black' }"
               :styleReset="false"
-              :items="todos"
-              v-model:vals="todos"
+              v-model="todos"
             />
             {{ todos }}
           </div>
@@ -673,9 +662,9 @@ const todos = ref([
               :pagination_mode="true"
               :headers="['Date', 'Title', 'Content']"
               :items="tableItems"
-              v-model:val="targetData"
+              v-model="targetData"
               steps="5"
-            />
+            />{{ targetData }}
           </div>
         </section>
       </template>

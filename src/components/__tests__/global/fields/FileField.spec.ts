@@ -26,14 +26,14 @@ describe('FileField', () => {
     await input.trigger('change')
 
     // Verify that the event was emitted with the correct data
-    const emittedEvents = wrapper.emitted('update:val')
+    const emittedEvents = wrapper.emitted('update:modelValue')
     expect(emittedEvents).toBeTruthy() // Check that the event was emitted
 
     if (emittedEvents) {
       // Check that the `val` event was emitted and the data is correct
       expect(emittedEvents[0][0]).toEqual(file)
     } else {
-      throw new Error('update:val event was not emitted')
+      throw new Error('update:modelValue event was not emitted')
     }
   })
 })

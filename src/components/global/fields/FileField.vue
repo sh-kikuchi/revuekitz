@@ -46,10 +46,10 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:val'])
+const emit = defineEmits(['update:modelValue'])
 const getFileData = () => {
   if (preview.value && preview.value.files && preview.value.files.length > 0) {
-    emit('update:val', preview.value.files[0])
+    emit('update:modelValue', preview.value.files[0])
   } else {
     // Handle the case where no file is selected or `preview` is not properly defined
     console.warn('No file selected or `preview` is not properly defined.')

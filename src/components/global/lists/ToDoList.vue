@@ -25,7 +25,7 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  items: {
+  modelValue: {
     type: Array,
     default: () => [
       {
@@ -44,7 +44,7 @@ const props = defineProps({
   }
 })
 
-const items = ref<Item[]>(props.items as Item[])
+const items = ref<Item[]>(props.modelValue as Item[])
 
 // Binding classes
 const bindingClass = computed(() => {
@@ -54,7 +54,7 @@ const bindingClass = computed(() => {
 const todo = ref<string>('')
 
 //emit
-const emit = defineEmits(['vals'])
+const emit = defineEmits(['modelValue'])
 
 // Add item to the list
 const addItem = () => {
@@ -64,7 +64,7 @@ const addItem = () => {
       checked: false // New items are unchecked by default
     })
     todo.value = '' // Reset input field
-    emit('vals', items.value)
+    emit('modelValue', items.value)
   }
 }
 
@@ -72,19 +72,19 @@ const addItem = () => {
 const deleteItem = (index: number, event: Event) => {
   event.stopPropagation() // Stop click event propagation
   items.value.splice(index, 1)
-  emit('vals', items.value)
+  emit('modelValue', items.value)
 }
 
 // Toggle checkbox state
 const toggleCheck = (index: number, isChecked: boolean) => {
   items.value[index].checked = isChecked
-  emit('vals', items.value)
+  emit('modelValue', items.value)
 }
 </script>
 
 <template>
   <div class="revuekitz-basic-list-strikethrough">
-    <TextField v-model:val="todo" @keyup.enter="addItem" />
+    <TextField v-model="todo" @keyup.enter="addItem" />
   </div>
   <ul :id="props.id" :class="bindingClass" :style="props.style">
     <li v-for="(item, index) in items" :key="index" class="revuekitz-basic-list-item">

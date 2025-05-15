@@ -26,6 +26,10 @@ const props = defineProps({
   styleReset: {
     type: Boolean,
     default: false
+  },
+  modelValue: {
+    type: String,
+    default: ''
   }
 })
 
@@ -39,10 +43,10 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:val'])
+const emit = defineEmits(['update:modelValue'])
 const setSelectedColor = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
-  emit('update:val', targetValue)
+  emit('update:modelValue', targetValue)
 }
 </script>
 <template>

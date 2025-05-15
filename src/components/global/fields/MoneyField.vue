@@ -19,7 +19,7 @@ const props = defineProps({
     type: String,
     default: ''
   },
-  money: {
+  modelValue: {
     type: [String, Number],
     default: ''
   },
@@ -51,7 +51,7 @@ const bindingClass = computed(() => {
 })
 
 // emit
-const emit = defineEmits(['update:val'])
+const emit = defineEmits(['update:modelValue'])
 const errorMessage = ref('')
 
 const updateValue = (event) => {
@@ -73,7 +73,7 @@ const updateValue = (event) => {
     errorMessage.value = ''
   }
 
-  emit('update:val', value)
+  emit('update:modelValue', value)
 }
 
 // methods
@@ -96,7 +96,7 @@ const formatNumberToMoney = (targetValue) => {
       :class="bindingClass"
       :style="props.style"
       :name="props.name"
-      :value="formatNumberToMoney(props.money)"
+      :value="formatNumberToMoney(props.modelValue)"
       :readonly="props.isReadonly"
       :disabled="props.isDisabled"
       @change="updateValue"

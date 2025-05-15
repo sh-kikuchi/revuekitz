@@ -8,7 +8,10 @@ const props = defineProps({
   name: String,
   style: [String, Object],
   styleReset: Boolean,
-  date: String,
+  modelValue: {
+    type: String,
+    default: ''
+  },
   type: {
     type: String,
     default: 'date'
@@ -25,17 +28,17 @@ const bindingClass = computed(() => {
 })
 
 // Emit event
-const emit = defineEmits(['update:val'])
-const internalValue = ref(props.date)
+const emit = defineEmits(['update:modelValue'])
+const internalValue = ref(props.modelValue)
 
 const updateValue = (event: Event) => {
   internalValue.value = (event.target as HTMLInputElement).value
-  emit('update:val', internalValue.value)
+  emit('update:modelValue', internalValue.value)
 }
 
 // Watch for prop changes
 watch(
-  () => props.date,
+  () => props.modelValue,
   (newValue) => {
     internalValue.value = newValue
   }

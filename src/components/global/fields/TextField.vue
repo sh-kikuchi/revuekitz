@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-//props
+// props
 const props = defineProps({
+  modelValue: {
+    type: String,
+    default: ''
+  },
   id: {
     type: String,
     default: ''
@@ -22,10 +26,6 @@ const props = defineProps({
   styleReset: {
     type: Boolean,
     default: false
-  },
-  text: {
-    type: String,
-    default: ''
   },
   type: {
     type: String,
@@ -50,20 +50,15 @@ const props = defineProps({
   }
 })
 
-//binding classes
+// computed class binding
 const bindingClass = computed(() => {
-  if (props.styleReset == true) {
-    return props.class
-  } else {
-    return `revuekitz-text-field ${props.class} `
-  }
+  return props.styleReset ? props.class : `revuekitz-text-field ${props.class}`
 })
 
-//emit
-const emit = defineEmits(['update:val'])
+// emit
+const emit = defineEmits(['update:modelValue'])
 const updateValue = (event: Event) => {
-  const targetValue = (event.target as HTMLInputElement).value
-  emit('update:val', targetValue)
+  emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
 </script>
 
@@ -74,12 +69,12 @@ const updateValue = (event: Event) => {
     :class="bindingClass"
     :style="props.style"
     :name="props.name"
-    :value="props.text"
+    :value="props.modelValue"
     :minlength="props.minlength"
     :maxlength="props.maxlength"
     :readonly="props.isReadonly"
     :disabled="props.isDisabled"
-    @change="updateValue"
+    @input="updateValue"
   />
 </template>
 

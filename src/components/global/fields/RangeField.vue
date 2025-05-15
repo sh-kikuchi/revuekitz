@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, useAttrs } from 'vue'
 const attrs = useAttrs()
-const rangeValue = ref<number>(0)
 const props = defineProps({
-  initValue: {
-    type: Number,
-    default: 0
-  },
   id: {
     type: String,
     default: ''
@@ -46,8 +41,14 @@ const props = defineProps({
   isReadonly: {
     type: Boolean,
     default: false
+  },
+  modelValue: {
+    type: Number,
+    default: 0
   }
 })
+
+const rangeValue = ref<number>(props.modelValue)
 
 //binding classes
 const bindingClass = computed(() => {
@@ -59,11 +60,11 @@ const bindingClass = computed(() => {
 })
 
 //emit
-const emit = defineEmits(['update:val'])
+const emit = defineEmits(['update:modelValue'])
 
 const updateValue = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
-  emit('update:val', targetValue)
+  emit('update:modelValue', targetValue)
 }
 </script>
 <template>

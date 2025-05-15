@@ -26,13 +26,13 @@ describe('ToggleSwitch.vue', () => {
     expect(slider.element.style.backgroundColor).toBe('rgb(33, 150, 243)') // Hex color to RGB
   })
 
-  it('emits update:val when toggled', async () => {
+  it('emits update:modelValue when toggled', async () => {
     await wrapper.find('input').setChecked(true)
-    expect(wrapper.emitted()['update:val']).toBeTruthy()
-    expect(wrapper.emitted()['update:val'][0]).toEqual([true])
+    expect(wrapper.emitted()['update:modelValue']).toBeTruthy()
+    expect(wrapper.emitted()['update:modelValue'][0]).toEqual([true])
 
     await wrapper.find('input').setChecked(false)
-    expect(wrapper.emitted()['update:val'][1]).toEqual([false])
+    expect(wrapper.emitted()['update:modelValue'][1]).toEqual([false])
   })
 
   it('computes the correct size classes based on props', async () => {

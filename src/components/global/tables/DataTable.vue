@@ -93,7 +93,7 @@ const search_items = computed(() => {
     })
   })
 })
-const emit = defineEmits(['update:val'])
+const emit = defineEmits(['update:modelValue'])
 
 const toggleItemSelection = (item: object, isSelected: boolean) => {
   if (isSelected) {
@@ -101,10 +101,10 @@ const toggleItemSelection = (item: object, isSelected: boolean) => {
   } else {
     state.selectedItems = state.selectedItems.filter((i) => i !== item)
   }
-  emit('update:val', state.selectedItems)
+  emit('update:modelValue', state.selectedItems)
 }
 
-// 全選択と全解除の切り替え
+// Select / Deselect All
 const toggleSelectAll = (isChecked: boolean) => {
   state.allSelected = isChecked
   if (isChecked) {
@@ -112,7 +112,7 @@ const toggleSelectAll = (isChecked: boolean) => {
   } else {
     state.selectedItems = []
   }
-  emit('update:val', state.selectedItems)
+  emit('update:modelValue', state.selectedItems)
 }
 
 const getDispItems = (dispArray: []) => {
@@ -124,7 +124,7 @@ const getDispItems = (dispArray: []) => {
   <div class="revuekitz-data-table">
     <div v-if="seach_mode" class="textfield-area">
       <label>Search</label>
-      <TextField :text="state.search" v-model:val="state.search" />
+      <TextField :text="state.search" v-model="state.search" />
     </div>
     <table>
       <thead>
