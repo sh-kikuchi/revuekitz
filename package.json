@@ -1,6 +1,6 @@
 {
   "name": "revuekitz",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "UI component library for Vue.js. I collected atomic and molecular level components based on atomic design.",
   "keywords": [
     "vue3",
@@ -9,6 +9,7 @@
   ],
   "main": "dist/revuekitz.umd.js",
   "module": "dist/revuekitz.es.js",
+  "types": "dist/index.d.ts",
   "private": false,
   "type": "module",
   "license": "MIT",
