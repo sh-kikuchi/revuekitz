@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, PropType } from 'vue'
 // eslint-disable-next-line vue/no-dupe-keys
-const selectedItem = ref<String>('A')
 
 interface Option {
   text: string
@@ -36,7 +35,7 @@ const props = defineProps({
   },
   modelValue: {
     type: String,
-    default: 'A'
+    default: ''
   },
   options: {
     type: Array as PropType<Option[]>,
@@ -63,16 +62,24 @@ const updateValue = (event: Event) => {
   const targetValue = (event.target as HTMLInputElement).value
   emit('update:modelValue', (selectedItem.value = targetValue))
 }
+
+//selected item
+const selectedItem = ref(props.modelValue)
 </script>
 <template>
-  <div :class="bindingClass" :style="props.style">
-    <select :id="props.id" :name="props.name" v-model="selectedItem" @change="updateValue">
-      <option disabled :value="initText">{{ initText }}</option>
-      <option v-for="option in options" :value="option.value" :key="option.value">
-        {{ option.text }}
-      </option>
-    </select>
-  </div>
+  <select
+    :id="props.id"
+    :class="bindingClass"
+    :name="props.name"
+    :style="props.style"
+    v-model="selectedItem"
+    @change="updateValue"
+  >
+    <option v-if="selectedItem === ''" disabled value="">{{ initText }}</option>
+    <option v-for="option in props.options" :key="option.value" :value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
 </template>
 <style scoped>
 .revuekitz-select-field {

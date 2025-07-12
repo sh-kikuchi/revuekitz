@@ -80,22 +80,17 @@ const updateValue = (event: Event) => {
   </div>
 </template>
 <style scoped>
-.revuekitz-radio-field {
+.revuekitz-radio-field > div {
   display: flex;
+  align-items: center;
 }
-.revuekitz-radio-field > input {
-  display: inline;
-  margin-top: 5px;
-  margin-right: 5px;
-  margin-left: 10px;
-  margin-bottom: 5px;
-}
+
 .revuekitz-radio-field > label {
-  display: inline;
+  margin: 0;
+  line-height: 1;
 }
 input.revuekitz-radio-field [type='radio'] {
-  transform: scale(1.2);
-  margin: 0 10px 0 0;
+  margin-right: 60px;
 }
 input.revuekitz-radio-field [readonly],
 input.revuekitz-radio-field [disabled] {

@@ -6,6 +6,8 @@ describe('SelectField', () => {
   it('renders the select component with default values', () => {
     const wrapper = mount(SelectField, {
       props: {
+        id: 'radio',
+        name: 'radio_name',
         items: [
           { text: 'One', value: 'A' },
           { text: 'Two', value: 'B' },
@@ -22,7 +24,7 @@ describe('SelectField', () => {
     // Check if default option is rendered
     const defaultOption = selectElement.find('option')
     expect(defaultOption.text()).toBe('選択してください')
-    expect(defaultOption.attributes('value')).toBe('選択してください')
+    expect(defaultOption.attributes('value')).toBe('')
 
     // Check if options are rendered correctly
     const options = selectElement.findAll('option')
@@ -37,7 +39,7 @@ describe('SelectField', () => {
     // Check if default props are applied correctly
     expect(selectElement.attributes('id')).toBe('radio')
     // expect(selectElement.classes()).toContain('test')
-    expect(selectElement.attributes('name')).toBe('')
+    expect(selectElement.attributes('name')).toBe('radio_name')
   })
 
   it('emits update:modelValue event on change', async () => {

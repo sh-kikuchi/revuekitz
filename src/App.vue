@@ -63,9 +63,14 @@ const moneyValue = ref(50)
 const checkedItem = ref('')
 const checkBoxChecked = ref(true)
 const radioCheckedItem = ref('Option 1')
-const selectedItem = ref('A')
 const rangeValue = ref(123)
-const rangeItems = ref(['Option 1', 'Option 2', 'Option 3'])
+const radioItems = ref(['Option 1', 'Option 2', 'Option 3'])
+const selectedItem = ref('C3')
+const optionItems = [
+  { text: 'Option 1', value: 'A1' },
+  { text: 'Option 2', value: 'B2' },
+  { text: 'Option 3', value: 'C3' }
+]
 const fileData = ref(null)
 const selectedColor = ref('#444')
 const dateValue = ref('2024-04-03')
@@ -261,7 +266,7 @@ const todos = ref([
                 <div class="andmore"><button>TEST</button></div>
               </template>
               <template v-slot:toolTipContent>
-                <div class="pa-2">TESTNAN</div>
+                <div class="pa-2">TESTMAN</div>
               </template>
             </ToolTip>
           </div>
@@ -388,10 +393,9 @@ const todos = ref([
           <h3>RadioField</h3>
           <div>
             <RadioField
-              :items="rangeItems"
+              :items="radioItems"
               id="radioFieldId"
               class="radio-field-class"
-              style="accent-color: red"
               name="radio_field_name"
               accentColor="red"
               :isDisabled="false"
@@ -422,7 +426,11 @@ const todos = ref([
         <section>
           <h3>SelectField</h3>
           <div>
-            <SelectField v-model="selectedItem" />
+            <SelectField
+              :initText="'Please select an option'"
+              :options="optionItems"
+              v-model="selectedItem"
+            />
           </div>
           <div>{{ selectedItem }}</div>
         </section>
@@ -467,7 +475,7 @@ const todos = ref([
               id="imgIconId"
               class="img-icon-class"
               style="border: 2px solid #000"
-              imgFile="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><path d='M10 10 H 90 V 90 H 10 Z' /></svg>"
+              path="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><path d='M10 10 H 90 V 90 H 10 Z' /></svg>"
               size="64"
               alt="Example Image"
             />
@@ -526,7 +534,7 @@ const todos = ref([
           </div>
           <div>
             <NavBar :isVisible="navBarVisible" @close="closeNavBar">
-              <NavBarItem to="" :icon="mdiInformationOutline" linkName="TEST" />
+              <NavBarItem to="/TEST" :icon="mdiInformationOutline" linkName="TEST" />
             </NavBar>
           </div>
         </section>

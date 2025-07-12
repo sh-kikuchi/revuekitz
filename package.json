@@ -1,10 +1,21 @@
 {
   "name": "revuekitz",
-  "version": "0.2.8",
+  "version": "1.0.0",
   "description": "UI component library for Vue.js. I collected atomic and molecular level components based on atomic design.",
   "keywords": [
+    "revuekitz",
+    "revue",
+    "vue",
+    "typescript",
     "vue3",
-    "UI",
+    "vue framework",
+    "ui",
+    "ui design",
+    "ui framework",
+    "component framework",
+    "component library",
+    "ui library",
+    "design system",
     "atomic design"
   ],
   "main": "dist/revuekitz.umd.js",
@@ -17,6 +28,7 @@
     "type": "git",
     "url": "https://github.com/sh-kikuchi/revuekitz.git"
   },
+  "homepage": "https://sh-revue.net/projects/revuekitz",
   "files": [
     "dist"
   ],

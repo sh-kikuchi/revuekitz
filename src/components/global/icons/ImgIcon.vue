@@ -14,7 +14,7 @@ const props = defineProps({
     type: [String, Object],
     default: ''
   },
-  imgFile: {
+  path: {
     type: String,
     default: ''
   },
@@ -37,7 +37,7 @@ const bindingSize = computed(() => {
 <template>
   <a href="#" class="revuekitz-img-icon" data-testid="revuekitz-img-icon">
     <div :style="bindingSize">
-      <img :alt="props.alt" :src="props.imgFile" :style="bindingSize" />
+      <img :alt="props.alt" :src="props.path" :style="bindingSize" />
     </div>
   </a>
 </template>

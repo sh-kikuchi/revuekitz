@@ -39,7 +39,9 @@ const props = defineProps({
 }
 
 .link-name {
+  width: 26px;
   font-size: 8px;
   text-align: center;
+  overflow-wrap: break-word;
 }
 </style>
