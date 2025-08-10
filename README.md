@@ -35,6 +35,7 @@ import { BasicButton } from 'revuekitz'
 
 - [CardFlame](https://sh-revue.net/documents/revuekitz/201_card_flame)
 - [ChipText](https://sh-revue.net/documents/revuekitz/202_chip_text)
+- [CustomMessage](https://sh-revue.net/documents/revuekitz/203_custom_message)
 - [LoadingLoader](https://sh-revue.net/documents/revuekitz/203_loading_loader)
 - [ModalDialog](https://sh-revue.net/documents/revuekitz/204_modal_dialog)
 - [PageTitle](https://sh-revue.net/documents/revuekitz/205_page_title)

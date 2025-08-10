@@ -43,3 +43,6 @@ coverage
 # These are generated during the build process
 src/**/*.js
 .vscode/
+
+# Doc
+doc
