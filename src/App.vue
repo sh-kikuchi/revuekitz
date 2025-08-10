@@ -11,6 +11,7 @@ import PushButton from './components/global/buttons/PushButton.vue'
 // displays (7)
 import CardFlame from './components/global/displays/CardFlame.vue'
 import ChipText from './components/global/displays/ChipText.vue'
+import CustomMessage from './components/global/displays/CustomMessage.vue'
 import LoadingLoader from './components/global/displays/LoadingLoader.vue'
 import ModalDialog from './components/global/displays/ModalDialog.vue'
 import PageTitle from './components/global/displays/PageTitle.vue'
@@ -220,6 +221,14 @@ const todos = ref([
             >
               <span>vue.js</span>
             </ChipText>
+          </div>
+        </section>
+        <section>
+          <h3>CustomMessage</h3>
+          <div style="margin-top: 15px; margin-bottom: 15px">
+            <CustomMessage message="infoメッセージ" mode="info" :duration="3000" />
+            <CustomMessage message="warningメッセージ" mode="warning" />
+            <CustomMessage message="Errorメッセージ" mode="error" />
           </div>
         </section>
         <section>
