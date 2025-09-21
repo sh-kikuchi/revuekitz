@@ -23,6 +23,7 @@ import CheckBoxField from './components/global/fields/CheckBoxField.vue'
 import ColorField from './components/global/fields/ColorField.vue'
 import DateField from './components/global/fields/DateField.vue'
 import FileField from './components/global/fields/FileField.vue'
+import FileDnd from './components/global/fields/FileDnd.vue'
 import MoneyField from './components/global/fields/MoneyField.vue'
 import NumberField from './components/global/fields/NumberField.vue'
 import RadioField from './components/global/fields/RadioField.vue'
@@ -72,7 +73,8 @@ const optionItems = [
   { text: 'Option 2', value: 'B2' },
   { text: 'Option 3', value: 'C3' }
 ]
-const fileData = ref(null)
+const fileData = ref<File[]>([])
+const selectedFiles = ref<File[]>([])
 const selectedColor = ref('#444')
 const dateValue = ref('2024-04-03')
 const toggleSwitchChecked = ref(false)
@@ -339,11 +341,36 @@ const todos = ref([
           <div>{{ dateValue }}</div>
         </section>
         <section>
+          <h3>FileDnd</h3>
+          <div style="margin-top: 15px; margin-bottom: 15px">
+            <FileDnd
+              v-model="selectedFiles"
+              style="width: 400px;" 
+              accept="image/*,.pdf,.docx"
+             />
+            <p v-if="selectedFiles.length > 0">
+              Selected Files:
+              <ul>
+                <li v-for="(file, i) in selectedFiles" :key="i">
+                  {{ file.name }} ({{ (file.size / 1024).toFixed(1) }} KB)
+                </li>
+              </ul>
+            </p>
+          </div>
+          <div><strong>Selected Files:</strong> {{ selectedFiles.length }}</div>
+        </section>
+        <section>
           <h3>FileField</h3>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <FileField v-model="fileData">File</FileField>
+            <FileField v-model="fileData" >Files</FileField>
           </div>
-          <div>{{ fileData ? fileData.name : null }}</div>
+          <div>
+            <ul>
+              <li v-for="file in fileData" :key="file.name">
+                {{ file.name }} ({{ file.size }} bytes)
+              </li>
+            </ul>
+          </div>
         </section>
         <section>
           <h3>MoneyField</h3>

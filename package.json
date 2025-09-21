@@ -1,6 +1,6 @@
 {
   "name": "revuekitz",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "UI component library for Vue.js. I collected atomic and molecular level components based on atomic design.",
   "keywords": [
     "revuekitz",
@@ -35,7 +35,8 @@
   "exports": {
     ".": {
       "import": "./dist/revuekitz.es.js",
-      "require": "./dist/revuekitz.umd.js"
+      "require": "./dist/revuekitz.umd.js",
+      "types": "./dist/index.d.ts"
     },
     "./dist/style.css": "./dist/style.css"
   },
@@ -44,6 +45,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:unit": "vitest",
+    "test:unit:watch": "vitest --watch",
+    "test:unit:ui": "vitest --ui",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
   },
