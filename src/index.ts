@@ -9,6 +9,7 @@ import PushButton from './components/global/buttons/PushButton.vue'
 // displays
 import CardFlame from './components/global/displays/CardFlame.vue'
 import ChipText from './components/global/displays/ChipText.vue'
+import CustomMessage from './components/global/displays/CustomMessage.vue'
 import LoadingLoader from './components/global/displays/LoadingLoader.vue'
 import ModalDialog from './components/global/displays/ModalDialog.vue'
 import PageTitle from './components/global/displays/PageTitle.vue'
@@ -19,6 +20,7 @@ import ToolTip from './components/global/displays/ToolTip.vue'
 import CheckBoxField from './components/global/fields/CheckBoxField.vue'
 import ColorField from './components/global/fields/ColorField.vue'
 import DateField from './components/global/fields/DateField.vue'
+import FileDnd from './components/global/fields/FileDnd.vue'
 import FileField from './components/global/fields/FileField.vue'
 import MoneyField from './components/global/fields/MoneyField.vue'
 import MultiLineField from './components/global/fields/MultiLineField.vue'
@@ -59,6 +61,7 @@ const components = {
   PushButton,
   CardFlame,
   ChipText,
+  CustomMessage,
   LoadingLoader,
   ModalDialog,
   PageTitle,
@@ -67,6 +70,7 @@ const components = {
   CheckBoxField,
   ColorField,
   DateField,
+  FileDnd,
   FileField,
   MoneyField,
   NumberField,
@@ -109,6 +113,7 @@ export {
   CheckBoxField,
   ColorField,
   DateField,
+  FileDnd,
   FileField,
   MoneyField,
   NumberField,
@@ -131,6 +136,7 @@ export {
   PageTitle,
   ChipText,
   CardFlame,
+  CustomMessage,
   LoadingLoader,
   DataTable,
   AccordionMenu,
