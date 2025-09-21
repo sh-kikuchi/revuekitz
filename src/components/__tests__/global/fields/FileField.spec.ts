@@ -2,38 +2,43 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import FileField from '../../../../components/global/fields/FileField.vue'
 
-describe('FileField', () => {
-  it('emits file data when a file is selected', async () => {
-    // Create a mock File object
-    const file = new File(['foo'], 'foo.txt', {
-      type: 'text/plain'
-    })
-
-    // Mount the component
-    const wrapper = mount(FileField)
-
-    // Get the input[type="file"] element
+describe('FileField.vue', () => {
+  it('emits selected file when a single file is chosen', async () => {
+    const file = new File(['foo content'], 'foo.txt', { type: 'text/plain' })
+    const wrapper = mount(FileField, { props: { multiple: false } })
     const input = wrapper.find('input[type="file"]')
 
-    // Create a FileList
-    const fileList = [file]
     Object.defineProperty(input.element, 'files', {
-      value: fileList,
+      value: [file],
       writable: false
     })
 
-    // Trigger the file selection event
     await input.trigger('change')
 
-    // Verify that the event was emitted with the correct data
     const emittedEvents = wrapper.emitted('update:modelValue')
-    expect(emittedEvents).toBeTruthy() // Check that the event was emitted
-
+    expect(emittedEvents).toBeTruthy()
     if (emittedEvents) {
-      // Check that the `val` event was emitted and the data is correct
-      expect(emittedEvents[0][0]).toEqual(file)
-    } else {
-      throw new Error('update:modelValue event was not emitted')
+      expect(emittedEvents[0][0]).toEqual([file])
+    }
+  })
+
+  it('emits selected files when multiple files are chosen', async () => {
+    const file1 = new File(['foo content'], 'foo.txt', { type: 'text/plain' })
+    const file2 = new File(['bar content'], 'bar.pdf', { type: 'application/pdf' })
+    const wrapper = mount(FileField, { props: { multiple: true } })
+    const input = wrapper.find('input[type="file"]')
+
+    Object.defineProperty(input.element, 'files', {
+      value: [file1, file2],
+      writable: false
+    })
+
+    await input.trigger('change')
+
+    const emittedEvents = wrapper.emitted('update:modelValue')
+    expect(emittedEvents).toBeTruthy()
+    if (emittedEvents) {
+      expect(emittedEvents[0][0]).toEqual([file1, file2]) // 配列で返る
     }
   })
 })

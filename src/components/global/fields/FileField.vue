@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
-//reactive data
-const preview = ref()
+// reactive
+const preview = ref<HTMLInputElement | null>(null)
 
-//props
+// props
 const props = defineProps({
   id: {
     type: String,
@@ -33,43 +33,55 @@ const props = defineProps({
   isReadonly: {
     type: Boolean,
     default: false
+  },
+  multiple: {
+    type: Boolean,
+    default: false
+  },
+  accept: {
+    type: String,
+    default: '' // ex: "image/*,.pdf,.docx"
   }
 })
 
-//binding classes
+// binding classes
 const bindingClass = computed(() => {
-  if (props.styleReset == true) {
-    return props.class
-  } else {
-    return `revuekitz-file-field ${props.class} `
-  }
+  return props.styleReset ? props.class : `revuekitz-file-field ${props.class}`
 })
 
-//emit
-const emit = defineEmits(['update:modelValue'])
+// emit
+const emit = defineEmits<{ (e: 'update:modelValue', files: File[]): void }>()
+
+// ファイル選択時
 const getFileData = () => {
   if (preview.value && preview.value.files && preview.value.files.length > 0) {
-    emit('update:modelValue', preview.value.files[0])
+    const files = Array.from(preview.value.files)
+    emit('update:modelValue', files)
+    preview.value = null
   } else {
-    // Handle the case where no file is selected or `preview` is not properly defined
-    console.warn('No file selected or `preview` is not properly defined.')
+    console.warn('No file selected.')
   }
 }
 </script>
+
 <template>
   <label :class="bindingClass" :style="props.style">
     <input
       type="file"
       :id="props.id"
       :name="props.name"
+      :style="props.style"
       :disabled="props.isDisabled"
       :readonly="props.isReadonly"
+      :accept="props.accept"
       ref="preview"
       @change="getFileData"
+      multiple
     />
     <slot></slot>
   </label>
 </template>
+
 <style scoped>
 .revuekitz-file-field {
   padding: 10px 40px;
