@@ -89,12 +89,11 @@ import { BasicButton } from 'revuekitz'
 
 ### 5. Release Note
 
-#### Updates in v1.2.2
+#### Updates in v1.2.2 ~.5
 
 <small>Released on 2025-09-22</small>
 
 - **ToDoList**
-
   - Fix bug in initial value check
     初期値チェックのバグ修正
 

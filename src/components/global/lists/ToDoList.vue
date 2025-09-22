@@ -35,7 +35,7 @@ const items = ref<Item[]>(props.modelValue as Item[])
 
 // Binding classes
 const bindingClass = computed(() => {
-  return props.styleReset ? props.class : `revuekitz-basic-list ${props.class}`
+  return props.styleReset ? props.class : `revuekitz-todo-list ${props.class}`
 })
 
 const todo = ref<string>('')
@@ -70,12 +70,12 @@ const toggleCheck = (index: number, isChecked: boolean) => {
 </script>
 
 <template>
-  <div class="revuekitz-basic-list-strikethrough">
+  <div class="revuekitz-todo-list-strikethrough">
     <TextField v-model="todo" @keyup.enter="addItem" />
   </div>
   <ul :id="props.id" :class="bindingClass" :style="props.style">
-    <li v-for="(item, index) in items" :key="index" class="revuekitz-basic-list-item">
-      <div class="revuekitz-basic-list-body">
+    <li v-for="(item, index) in items" :key="index" class="revuekitz-todo-list-item">
+      <div class="revuekitz-todo-list-body">
         <div>
           <CheckBoxField
             :checked="item.checked"
@@ -87,7 +87,7 @@ const toggleCheck = (index: number, isChecked: boolean) => {
         </div>
       </div>
       <div>
-        <div class="revuekitz-basic-list-delete-action" @click="deleteItem(index, $event)">
+        <div class="revuekitz-todo-list-delete-action" @click="deleteItem(index, $event)">
           &times;
         </div>
       </div>
@@ -96,11 +96,11 @@ const toggleCheck = (index: number, isChecked: boolean) => {
 </template>
 
 <style scoped>
-.revuekitz-basic-list {
+.revuekitz-todo-list {
   padding: 0;
 }
 
-.revuekitz-basic-list > li {
+.revuekitz-todo-list > li {
   padding: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -108,26 +108,26 @@ const toggleCheck = (index: number, isChecked: boolean) => {
   background: whitesmoke;
 }
 
-.revuekitz-basic-list > li:hover {
+.revuekitz-todo-list > li:hover {
   background: lightgrey;
 }
 
-.revuekitz-basic-list > li:last-child {
+.revuekitz-todo-list > li:last-child {
   border-bottom: none;
 }
 
-.revuekitz-basic-list-item {
+.revuekitz-todo-list-item {
   display: flex;
   justify-content: space-between;
 }
 
-.revuekitz-basic-list-delete-action {
+.revuekitz-todo-list-delete-action {
   cursor: pointer;
   font-size: 15px;
   padding-right: 5px;
 }
 
-.revuekitz-basic-list-delete-action:hover {
+.revuekitz-todo-list-delete-action:hover {
   color: darkred;
 }
 
@@ -136,13 +136,13 @@ const toggleCheck = (index: number, isChecked: boolean) => {
   text-decoration: line-through;
 }
 
-.revuekitz-basic-list-strikethrough {
+.revuekitz-todo-list-strikethrough {
   display: flex;
   justify-content: center;
   margin-bottom: 5px;
 }
 
-.revuekitz-basic-list-body {
+.revuekitz-todo-list-body {
   display: flex;
   align-items: center;
   margin-top: 5px;

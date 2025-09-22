@@ -135,7 +135,10 @@ const tableItems = ref([
 ])
 const targetData = ref([])
 
-const todos = ref([]);
+const todos = ref([
+  { id: '1', title: 'Todo #1', value: 1, href: '#' },
+  { id: '2', title: 'Todo #2', value: 2, checked: true }
+])
 
 </script>
 
