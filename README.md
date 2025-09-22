@@ -89,13 +89,20 @@ import { BasicButton } from 'revuekitz'
 
 ### 5. Release Note
 
-#### Updates in v1.2.1
+#### Updates in v1.2.2
+
+<small>Released on 2025-09-22</small>
+
+- **ToDoList**
+
+  - Fix bug in initial value check
+    初期値チェックのバグ修正
 
 <small>Released on 2025-09-21</small>
 
 - **FileField**
 
-  - Added support for multiple file selection (`multiple`).  
+  - Minor update for checking default/initial values
     複数ファイル選択 (`multiple`) に対応しました。
   - Supports `v-model` to retrieve the selected file array.  
     `v-model` で選択したファイル配列を取得できるようになりました。

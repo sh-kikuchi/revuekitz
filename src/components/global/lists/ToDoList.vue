@@ -27,20 +27,7 @@ const props = defineProps({
   },
   modelValue: {
     type: Array,
-    default: () => [
-      {
-        title: 'Item #1',
-        checked: false
-      },
-      {
-        title: 'Item #2',
-        checked: false
-      },
-      {
-        title: 'Item #3',
-        checked: false
-      }
-    ]
+    default: () => []
   }
 })
 
@@ -91,7 +78,7 @@ const toggleCheck = (index: number, isChecked: boolean) => {
       <div class="revuekitz-basic-list-body">
         <div>
           <CheckBoxField
-            :isChecked="item.checked"
+            :checked="item.checked"
             @change="toggleCheck(index, $event.target.checked)"
           />
         </div>
