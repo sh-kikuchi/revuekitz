@@ -21,7 +21,7 @@ const props = defineProps({
 <template>
   <div class="revuekitz-nab-bar-item">
     <div>
-      <SvgIcon class="icon-wrapper" :path="icon" size="26" />
+      <SvgIcon class="icon-wrapper" :path="icon" size="30" />
       <div class="link-name">{{ props.linkName }}</div>
     </div>
   </div>
@@ -30,8 +30,15 @@ const props = defineProps({
 .revuekitz-nab-bar-item {
   display: flex;
   justify-content: center;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  width: 53px;
+  height: 53px;
+  padding-top: 3%;
+  padding-bottom: 3px;
+  cursor: pointer;
+}
+
+.revuekitz-nab-bar-item:hover {
+  background-color: lightgray;
 }
 
 .revuekitz-nab-bar-item:active {
@@ -39,9 +46,11 @@ const props = defineProps({
 }
 
 .link-name {
-  width: 26px;
+  margin-top: -6px;
+  width: 30px;
   font-size: 8px;
   text-align: center;
   overflow-wrap: break-word;
+  hyphens: auto;
 }
 </style>

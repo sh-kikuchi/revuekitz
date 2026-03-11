@@ -56,9 +56,9 @@ const bindingClass = computed(() => {
 }
 
 .revuekitz-navigation-content {
-  width: 70px;
+  width: 60px;
   height: 100vh;
-  padding: 20px;
+  padding: 5px;
   position: fixed;
   top: 0;
   left: 0;
