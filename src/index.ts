@@ -55,6 +55,9 @@ import ToDoList from './components/global/lists/ToDoList.vue'
 // tables
 import DataTable from './components/global/tables/DataTable.vue'
 
+// calendars
+import EventCalendar from './components/global/calendars/EventCalendar.vue'
+
 const components = {
   BasicButton,
   LinkButton,
@@ -95,7 +98,8 @@ const components = {
   PaginateList,
   TreeList,
   DataTable,
-  ToDoList
+  ToDoList,
+  EventCalendar
 }
 
 export default {
@@ -146,5 +150,6 @@ export {
   ModalDialog,
   ImgIcon,
   SvgIcon,
-  ToDoList
+  ToDoList,
+  EventCalendar
 }

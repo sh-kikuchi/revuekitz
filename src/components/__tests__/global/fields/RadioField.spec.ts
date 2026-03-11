@@ -46,4 +46,20 @@ describe('RadioField', () => {
     expect(wrapper.emitted('update:modelValue')).toBeTruthy()
     expect(wrapper.emitted('update:modelValue')?.at(0)).toEqual(['Option 2'])
   })
+
+  it('sets checked state correctly based on initial modelValue', () => {
+    const wrapper = mount(RadioField, {
+      props: {
+        items: ['Option 1', 'Option 2', 'Option 3'],
+        modelValue: 'Option 2'
+      }
+    })
+
+    const radioInputs = wrapper.findAll('input[type="radio"]')
+
+    // "Option 2" が初期チェックされているか確認
+    expect(radioInputs[1].element.checked).toBe(true)
+    expect(radioInputs[0].element.checked).toBe(false)
+    expect(radioInputs[2].element.checked).toBe(false)
+  })
 })

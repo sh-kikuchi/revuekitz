@@ -83,40 +83,43 @@ import { BasicButton } from 'revuekitz'
 - [PaginateList](https://sh-revue.net/documents/revuekitz/604_paginate_list)
 - [TreeList](https://sh-revue.net/documents/revuekitz/605_tree_list)
 
-#### Table
+#### Tables
 
 - [DataTable](https://sh-revue.net/documents/revuekitz/701_data_table)
 
+#### Calendars
+
+- [EventCalendar](https://sh-revue.net/documents/revuekitz/801_event_calendar)
+
 ### 5. Release Note
 
-#### Updates in v1.2.2 ~.5
+#### Updates in v1.3.16
 
-<small>Released on 2025-09-22</small>
+<small>Released on 2026-03-11</small>
 
-- **ToDoList**
-  - Fix bug in initial value check
-    初期値チェックのバグ修正
+- **DataTable (Update)**
 
-<small>Released on 2025-09-21</small>
+- Added selectable prop to toggle the checkbox selection column on or off.<br>
 
-- **FileField**
+  - チェックボックスによる行選択列の表示 / 非表示を切り替えられる selectable プロパティを追加しました。
 
-  - Minor update for checking default/initial values
-    複数ファイル選択 (`multiple`) に対応しました。
-  - Supports `v-model` to retrieve the selected file array.  
-    `v-model` で選択したファイル配列を取得できるようになりました。
-  - Added `accept` property to specify allowed file types.  
-    `accept` プロパティで許可するファイルタイプを指定できるようになりました。
+- Added striped prop to enable or disable the striped table layout.<br>
 
-- **FileDnd** (New)
-  - Introduced a new component that allows selecting files via drag & drop.  
-    ドラッグ＆ドロップでファイルを選択できる新しいコンポーネントを追加しました。
-  - Supports `v-model` to retrieve the selected file array.  
-    `v-model` で選択したファイル配列を取得可能です。
-  - Internally uses `FileField`, so traditional file selection via click is still available.  
-    内部で `FileField` を使用しているため、従来のクリックによるファイル選択も利用できます。
+  - テーブルのストライプ表示をON / OFFできる striped プロパティを追加しました。
 
-> With this update, users can now upload files more intuitively, either by clicking to select or by dragging and dropping them directly.  
-> このアップデートにより、ユーザーはファイルをクリックして選択する方法に加え、ドラッグ＆ドロップで直感的にアップロードできるようになりました。  
-> For more details, please refer to the component documentation.  
-> 詳細はコンポーネントのドキュメントをご参照ください。
+- Improved sorting UI and added configurable default sort order.<br>
+  - 並び替えUIを改善し、デフォルトのソート順を設定できるようにしました。△ / ▼ボタンで昇順・降順を切り替えることができます。
+
+```vue
+<DataTable
+  :searchMode="true"
+  :paginationMode="true"
+  :selectable="true"
+  :striped="true"
+  :headers="['Date', 'Title', 'Content']"
+  :items="tableItems"
+  v-model="targetData"
+  steps="5"
+  sortType="desc"
+/>
+```

@@ -4,8 +4,6 @@ import PaginateList from '../lists/PaginateList.vue'
 import TextField from '../fields/TextField.vue'
 import CheckBoxField from '../fields/CheckBoxField.vue'
 
-const td = ref(null)
-
 type State = {
   message: string
   search: string
@@ -23,11 +21,11 @@ const state = reactive<State>({
 })
 
 const props = defineProps({
-  seach_mode: {
+  searchMode: {
     type: Boolean,
     default: true
   },
-  pagination_mode: {
+  paginationMode: {
     type: Boolean,
     default: true
   },
@@ -48,37 +46,63 @@ const props = defineProps({
   steps: {
     type: [String, Number],
     default: 3
+  },
+  sortType: {
+    type: String,
+    default: 'desc'
+  },
+  striped: {
+    type: Boolean,
+    default: true
+  },
+  selectable: {
+    type: Boolean,
+    default: true
   }
 })
 
-const highLight = (text: string | number | boolean) => {
+const highlight = (text: string | number | boolean) => {
   if (typeof text === 'boolean') {
     return
   }
+
   const searchText = typeof text === 'number' ? String(text) : text
   const searchWord = state.search.trim()
+
   if (!searchWord || !searchText.includes(searchWord)) {
     return searchText
   }
 
-  const re = new RegExp(searchWord, 'ig')
-  return searchText.replace(re, function (search) {
-    return '<span style="background-color:yellow;font-weight:bold">' + search + '</span>'
+  const escaped = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+  const re = new RegExp(escaped, 'ig')
+
+  return searchText.replace(re, (match) => {
+    return `<span style="background-color:yellow;font-weight:bold">${match}</span>`
   })
 }
 
-const sortDateAsc = (columnName: string) => {
-  state.items.sort((a, b) => {
-    return a[columnName] > b[columnName] ? 1 : -1
-  })
-}
-const sortDateDesc = (columnName: string) => {
-  state.items.sort((a, b) => {
-    return a[columnName] < b[columnName] ? 1 : -1
+const sortTypes = ref<Record<string, 'asc' | 'desc'>>({})
+props.headers.forEach((header: any) => {
+  sortTypes.value[header] = props.sortType as 'asc' | 'desc'
+})
+
+const sortColumn = (columnName: string) => {
+  const current = sortTypes.value[columnName] || props.sortType
+  const next = current === 'asc' ? 'desc' : 'asc'
+
+  sortTypes.value[columnName] = next
+
+  state.items.sort((a: any, b: any) => {
+    if (next === 'asc') {
+      return a[columnName] > b[columnName] ? 1 : -1
+    } else {
+      return a[columnName] < b[columnName] ? 1 : -1
+    }
   })
 }
 
-const search_items = computed(() => {
+const searchItems = computed(() => {
   const searchWord = state.search.trim()
   if (searchWord === '') return state.items
   return state.items.filter((item) => {
@@ -101,10 +125,12 @@ const toggleItemSelection = (item: object, isSelected: boolean) => {
   } else {
     state.selectedItems = state.selectedItems.filter((i) => i !== item)
   }
+
+  state.allSelected = state.selectedItems.length === state.items.length
+
   emit('update:modelValue', state.selectedItems)
 }
 
-// Select / Deselect All
 const toggleSelectAll = (isChecked: boolean) => {
   state.allSelected = isChecked
   if (isChecked) {
@@ -121,46 +147,47 @@ const getDispItems = (dispArray: []) => {
 </script>
 
 <template>
-  <div class="revuekitz-data-table">
-    <div v-if="seach_mode" class="textfield-area">
+  <div class="revuekitz-data-table" :class="{ striped: props.striped }">
+    <div v-if="searchMode" class="textfield-area">
       <label>Search</label>
       <TextField :text="state.search" v-model="state.search" />
     </div>
-    <table>
+    <table :class="{ selectable: props.selectable }">
       <thead>
         <tr>
-          <th>
+          <th v-if="props.selectable">
             <CheckBoxField
               @change="toggleSelectAll(($event.target as HTMLInputElement).checked)"
-              :isChecked="state.allSelected"
+              :checked="state.allSelected"
             />
           </th>
           <th v-for="(header, headerIndex) in props.headers" :key="headerIndex">
             {{ header }}
-            <span class="sort-btn" @click="sortDateDesc(header as string)">▼</span>
-            <span class="sort-btn" @click="sortDateAsc(header as string)">△</span>
+            <span class="sort-btn" @click="sortColumn(header as string)">
+              {{ sortTypes[header as string] === 'desc' ? '△' : '▼' }}
+            </span>
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(obj, index) in search_items" :key="index">
-          <td ref="td">
-            <input
-              type="checkbox"
-              :checked="state.selectedItems.includes(obj)"
+        <tr v-for="(obj, index) in searchItems" :key="index">
+          <td v-if="props.selectable">
+            <CheckBoxField
+              v-if="props.selectable"
+              :checked="state.allSelected || state.selectedItems.includes(obj)"
               @change="toggleItemSelection(obj, ($event.target as HTMLInputElement).checked)"
             />
           </td>
           <td
             v-for="(val, valIndex) in Object.values(obj)"
             :key="valIndex"
-            v-html="highLight(val)"
+            v-html="highlight(val)"
             v-show="valIndex < props.headers.length"
           ></td>
         </tr>
       </tbody>
     </table>
-    <div v-if="pagination_mode" class="pagination-area">
+    <div v-if="paginationMode" class="pagination-area">
       <PaginateList
         @handleAction="getDispItems"
         :items="props.items"
@@ -196,7 +223,8 @@ th {
   max-width: 200px;
   text-wrap: wrap;
 }
-.revuekitz-data-table > table th:first-child {
+.revuekitz-data-table table.selectable th:first-child,
+.revuekitz-data-table table.selectable td:first-child {
   width: 40px;
   max-width: 40px;
   margin: 0 auto;
@@ -207,13 +235,12 @@ th {
   word-wrap: break-word;
 }
 
-.revuekitz-data-table > table tbody tr:nth-child(even),
-.revuekitz-data-table > table thead tr {
+.revuekitz-data-table.striped table tbody tr:nth-child(even),
+.revuekitz-data-table.striped table thead tr {
   background-color: whitesmoke;
 }
 
 .revuekitz-data-table > .textfield-area {
-  display: absolute;
   margin-bottom: 5px;
 }
 .revuekitz-data-table > .pagination-area {

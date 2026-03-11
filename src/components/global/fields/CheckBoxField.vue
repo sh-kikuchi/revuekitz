@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 
 //reactive data
 const itemChecked = ref<boolean>(false)
@@ -73,6 +73,13 @@ const updateValue = (event: Event) => {
   emit('update:modelValue', target.checked ? props.item : '')
   emit('update:checked', target.checked)
 }
+
+watch(
+  () => props.checked,
+  (val) => {
+    itemChecked.value = val
+  }
+)
 
 // mouted
 onMounted(() => {

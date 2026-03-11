@@ -72,6 +72,7 @@ const updateValue = (event: Event) => {
         :style="{ accentColor: props.accentColor }"
         :disabled="props.isDisabled"
         :readonly="props.isReadonly"
+        :checked="modelValue === item"
         v-model="selectedItem"
         @change="updateValue"
       />
