@@ -147,11 +147,23 @@ const getDispItems = (dispArray: []) => {
 </script>
 
 <template>
+  <div v-if="searchMode" class="revuekitz-data-table-textfield-area">
+    <label>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="black">
+        <path
+          d="M15.5 14h-.79l-.28-.27
+            A6.471 6.471 0 0 0 16 9.5
+            6.5 6.5 0 1 0 9.5 16
+            a6.471 6.471 0 0 0 4.23-1.57l.27.28v.79l5 5
+            1.5-1.5-5-5zM9.5 14
+            A4.5 4.5 0 1 1 14 9.5
+            4.505 4.505 0 0 1 9.5 14z"
+        />
+      </svg>
+    </label>
+    <TextField :text="state.search" v-model="state.search" />
+  </div>
   <div class="revuekitz-data-table" :class="{ striped: props.striped }">
-    <div v-if="searchMode" class="textfield-area">
-      <label>Search</label>
-      <TextField :text="state.search" v-model="state.search" />
-    </div>
     <table :class="{ selectable: props.selectable }">
       <thead>
         <tr>
@@ -201,17 +213,23 @@ const getDispItems = (dispArray: []) => {
 label {
   margin-right: 5px;
 }
+
+.revuekitz-data-table-textfield-area {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
 .revuekitz-data-table {
   position: relative;
   overflow: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
+
 .revuekitz-data-table > table {
-  min-width: 420px;
-  max-width: 860px;
+  max-width: 1200px;
+  min-width: 360px;
+  margin: 0 auto;
   border-collapse: collapse;
 }
 
@@ -240,9 +258,6 @@ th {
   background-color: whitesmoke;
 }
 
-.revuekitz-data-table > .textfield-area {
-  margin-bottom: 5px;
-}
 .revuekitz-data-table > .pagination-area {
   display: flex;
   justify-content: center;

@@ -93,22 +93,20 @@ import { BasicButton } from 'revuekitz'
 
 ### 5. Release Note
 
-#### Updates in v1.3.16
+#### Updates in v1.3.18
 
-<small>Released on 2026-03-11</small>
+<small>Released on 2026-04-29</small>
 
-- **DataTable (Update)**
+- **EventCalendar (Update)**
 
-- Added selectable prop to toggle the checkbox selection column on or off.<br>
+- Improved layout behavior when the calendar overflows its container.<br>
 
-  - チェックボックスによる行選択列の表示 / 非表示を切り替えられる selectable プロパティを追加しました。
+  - カレンダーは約840pxの幅を持つため、コンテナからはみ出した場合にスクロールできるようスタイルを修正しました。
 
-- Added striped prop to enable or disable the striped table layout.<br>
+- Notes<br>
 
-  - テーブルのストライプ表示をON / OFFできる striped プロパティを追加しました。
-
-- Improved sorting UI and added configurable default sort order.<br>
-  - 並び替えUIを改善し、デフォルトのソート順を設定できるようにしました。△ / ▼ボタンで昇順・降順を切り替えることができます。
+  - Future support for dynamic style changes (such as responsive behavior or user-configurable settings) is under consideration.<br>
+  - 今後、スタイルの動的な変更（レスポンシブ対応やユーザー設定による切り替えなど）については検討予定です。
 
 ```vue
 <DataTable

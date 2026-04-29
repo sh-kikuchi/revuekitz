@@ -7,7 +7,7 @@ interface Event {
   start: string // Event start date string
   end: string // Event end date string
   color: string // Event color for display
-  row?: number // Row position in the week (for stacking)
+  row: number // Row position in the week (for stacking)
   offset?: number // Day offset in the week (0=Sun, 6=Sat)
   span?: number // Number of days the event spans in the week
 }
@@ -65,13 +65,13 @@ const getWeekEvents = (weekStart: Date) => {
     })
 
   // Assign rows to prevent overlapping bars
-  const slots = []
+  const slots: any = []
   eventsInWeek.forEach((event) => {
     let row = 1
     // eslint-disable-next-line no-constant-condition
     while (true) {
       const conflict = slots.some(
-        (e) =>
+        (e: { row: number; offset: number; span: any }) =>
           e.row === row && e.offset < event.offset + event.span && e.offset + e.span > event.offset
       )
       if (!conflict) break
@@ -129,7 +129,7 @@ const prevMonth = () => {
 }
 
 // Handle click on an event
-const onEventClick = (event) => {
+const onEventClick = (event: Event) => {
   emit('update:modelValue', event) // Emit the selected event
 }
 </script>
@@ -198,8 +198,9 @@ const onEventClick = (event) => {
 
 <style scoped>
 .revuekitz-event-calendar-container {
-  width: 840px;
+  max-width: 845px;
   margin: auto;
+  overflow-x: auto;
 }
 
 .revuekitz-event-calendar-nav-buttons {
@@ -210,11 +211,10 @@ const onEventClick = (event) => {
 
 .revuekitz-event-calendar-week-header {
   display: flex;
-  width: 840px;
-  border-bottom: 1px solid gray;
+  /* border-bottom: 1px solid gray; */
 }
 .revuekitz-event-calendar-week-day {
-  width: 120px;
+  min-width: 120px;
   text-align: center;
 }
 .revuekitz-event-calendar-week-day.sun {
@@ -232,7 +232,6 @@ const onEventClick = (event) => {
 }
 .revuekitz-event-calendar-week-cells {
   display: flex;
-  width: 840px;
 }
 
 .revuekitz-event-calendar-day-cell,
@@ -244,11 +243,18 @@ const onEventClick = (event) => {
   flex: none;
   width: 120px;
   min-height: 120px;
-  border-right: 1px solid gray;
-  border-bottom: 1px solid gray;
   position: relative;
-  text-align: center;
 }
+
+.revuekitz-event-calendar-day-cell {
+  border-top: 1px solid gray;
+  border-right: 1px solid gray;
+}
+
+.revuekitz-event-calendar-week-row:last-child .revuekitz-event-calendar-day-cell {
+  border-bottom: 1px solid gray;
+}
+
 .revuekitz-event-calendar-day-cell.current-month {
   background: white;
 }

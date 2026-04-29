@@ -1,3 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`PageTitle > matches snapshot 1`] = `"<h1 data-v-fa0f5afc="" id="" class="revuekitz-title" style=""></h1>"`;
