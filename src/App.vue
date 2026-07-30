@@ -60,6 +60,13 @@ import ToDoList from './components/global/lists/ToDoList.vue'
 // calendar(1)
 import EventCalendar from "./components/global/calendars/EventCalendar.vue"
 
+interface Item {
+  id: string
+  title: string
+  value: number
+  href?: string
+}
+
 /*======Fields:start=====*/
 const text = ref('text')
 const text2 = ref('text2')
@@ -85,7 +92,12 @@ const longTextValue = ref('long text \n test')
 /*======Fields:end=====*/
 
 /*======PaginateList:start=====*/
-const items = ref([
+interface DisplayItem {
+  id: number
+  name_en: string
+}
+
+const items = ref<DisplayItem[]>([
   { id: 1, name_en: 'coffee' },
   { id: 2, name_en: 'espresso' },
   { id: 3, name_en: 'cappuccino' },
@@ -98,9 +110,10 @@ const items = ref([
   { id: 10, name_en: 'curry' }
 ])
 
-const displayItems = ref([])
 
-const getDispItems = (dispArray) => {
+const displayItems = ref<DisplayItem[]>([])
+
+const getDispItems = (dispArray: DisplayItem[]) => {
   displayItems.value = dispArray
 }
 /*======PaginateList:end=====*/
@@ -145,7 +158,14 @@ const todos = ref([
 /*======DataTable:end=====*/
 
 /*======EventCalendar:start=====*/
-const events = [
+interface CalendarEvent {
+  name: string
+  start: string
+  end: string
+  color: string
+  row?: number
+}
+const events: CalendarEvent[]= [
   { name: "ミーティング", start: "2025-10-01", end:"2025-10-01", color:"blue"},
   { name: "イベント", start: "2025-10-02", end:"2025-10-03", color:"limegreen"},
   { name: "会議", start: "2025-10-06", end:"2025-10-06", color:"deepskyblue"},
@@ -166,7 +186,7 @@ const events = [
   { name: "会議3", start: "2025-10-12", end:"2025-10-12", color:"deepskyblue"},
   { name: "誕生日", start: "2025-10-30", end:"2025-10-30", color:"orange"},
 ]
-const selectedEvent = ref(null);
+const selectedEvent = ref<CalendarEvent | null>(null)
 /*======EventCalendar:end=====*/
 </script>
 
@@ -632,7 +652,7 @@ const selectedEvent = ref(null);
                 { id: '1', title: 'Custom Item #1', value: 1, href: '#' },
                 { id: '2', title: 'Custom Item #2', value: 2 }
               ]"
-              @update:value="(value) => console.log(value)"
+              @update:value="(value:Item) => console.log(value)"
             />
           </div>
         </section>

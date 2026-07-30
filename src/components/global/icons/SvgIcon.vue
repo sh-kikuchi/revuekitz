@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiAccount } from '@mdi/js'
 import { computed } from 'vue'

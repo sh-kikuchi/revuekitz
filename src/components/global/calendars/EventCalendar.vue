@@ -3,13 +3,16 @@ import { ref, computed } from 'vue'
 
 // Define the structure of an event object
 interface Event {
-  name: string // Event title
-  start: string // Event start date string
-  end: string // Event end date string
-  color: string // Event color for display
-  row: number // Row position in the week (for stacking)
-  offset?: number // Day offset in the week (0=Sun, 6=Sat)
-  span?: number // Number of days the event spans in the week
+  name: string
+  start: string
+  end: string
+  color: string
+}
+
+interface PositionedEvent extends Event {
+  row: number
+  offset: number
+  span: number
 }
 
 // Props expected by this component
@@ -43,7 +46,7 @@ const getEndDate = () => {
 }
 
 // Arrange events for a single week
-const getWeekEvents = (weekStart: Date) => {
+const getWeekEvents = (weekStart: Date): PositionedEvent[] => {
   const weekEnd = new Date(weekStart)
   weekEnd.setDate(weekEnd.getDate() + 6) // Calculate the end of this week (Saturday)
 
@@ -61,11 +64,16 @@ const getWeekEvents = (weekStart: Date) => {
       const eventEnd = end > weekEnd ? weekEnd : end // Clip end to week end
       const offset = Math.floor(eventStart.getDay())
       const span = Math.floor(Math.min(eventEnd.getDay() - eventStart.getDay() + 1, 7 - offset))
-      return { ...event, offset, span }
+      return {
+        ...event,
+        offset,
+        span,
+        row: 0
+      }
     })
 
   // Assign rows to prevent overlapping bars
-  const slots: any = []
+  const slots: PositionedEvent[] = []
   eventsInWeek.forEach((event) => {
     let row = 1
     // eslint-disable-next-line no-constant-condition
