@@ -58,7 +58,7 @@ import DataTable from './components/global/tables/DataTable.vue'
 import ToDoList from './components/global/lists/ToDoList.vue'
 
 // calendar(1)
-import EventCalendar from "./components/global/calendars/EventCalendar.vue"
+import EventCalendar from './components/global/calendars/EventCalendar.vue'
 
 interface Item {
   id: string
@@ -109,7 +109,6 @@ const items = ref<DisplayItem[]>([
   { id: 9, name_en: 'salad' },
   { id: 10, name_en: 'curry' }
 ])
-
 
 const displayItems = ref<DisplayItem[]>([])
 
@@ -165,26 +164,26 @@ interface CalendarEvent {
   color: string
   row?: number
 }
-const events: CalendarEvent[]= [
-  { name: "ミーティング", start: "2025-10-01", end:"2025-10-01", color:"blue"},
-  { name: "イベント", start: "2025-10-02", end:"2025-10-03", color:"limegreen"},
-  { name: "会議", start: "2025-10-06", end:"2025-10-06", color:"deepskyblue"},
-  { name: "有給", start: "2025-10-08", end:"2025-10-08", color:"dimgray"},
-  { name: "海外旅行", start: "2025-10-08", end:"2025-10-12", color:"navy"},
-  { name: "誕生日", start: "2025-10-16", end:"2025-10-16", color:"orange"},
-  { name: "イベント", start: "2025-10-12", end:"2025-10-15", color:"limegreen"},
-  { name: "出張", start: "2025-10-12", end:"2025-10-13", color:"teal"},
-  { name: "客先訪問", start: "2025-10-14", end:"2025-10-14", color:"red"},
-  { name: "パーティ", start: "2025-10-15", end:"2025-10-15", color:"royalblue"},
-  { name: "ミーティング", start: "2025-10-18", end:"2025-10-19", color:"blue"},
-  { name: "イベント", start: "2025-10-21", end:"2025-10-21", color:"limegreen"},
-  { name: "有給2", start: "2025-10-20", end:"2025-10-20", color:"dimgray"},
-  { name: "イベント", start: "2025-10-25", end:"2025-10-28", color:"limegreen"},
-  { name: "会議2", start: "2025-10-21", end:"2025-10-21", color:"deepskyblue"},
-  { name: "旅行", start: "2025-10-23", end:"2025-10-24", color:"navy"},
-  { name: "ミーティング", start: "2025-10-28", end:"2025-10-28", color:"blue"},
-  { name: "会議3", start: "2025-10-12", end:"2025-10-12", color:"deepskyblue"},
-  { name: "誕生日", start: "2025-10-30", end:"2025-10-30", color:"orange"},
+const events: CalendarEvent[] = [
+  { name: 'ミーティング', start: '2025-10-01', end: '2025-10-01', color: 'blue' },
+  { name: 'イベント', start: '2025-10-02', end: '2025-10-03', color: 'limegreen' },
+  { name: '会議', start: '2025-10-06', end: '2025-10-06', color: 'deepskyblue' },
+  { name: '有給', start: '2025-10-08', end: '2025-10-08', color: 'dimgray' },
+  { name: '海外旅行', start: '2025-10-08', end: '2025-10-12', color: 'navy' },
+  { name: '誕生日', start: '2025-10-16', end: '2025-10-16', color: 'orange' },
+  { name: 'イベント', start: '2025-10-12', end: '2025-10-15', color: 'limegreen' },
+  { name: '出張', start: '2025-10-12', end: '2025-10-13', color: 'teal' },
+  { name: '客先訪問', start: '2025-10-14', end: '2025-10-14', color: 'red' },
+  { name: 'パーティ', start: '2025-10-15', end: '2025-10-15', color: 'royalblue' },
+  { name: 'ミーティング', start: '2025-10-18', end: '2025-10-19', color: 'blue' },
+  { name: 'イベント', start: '2025-10-21', end: '2025-10-21', color: 'limegreen' },
+  { name: '有給2', start: '2025-10-20', end: '2025-10-20', color: 'dimgray' },
+  { name: 'イベント', start: '2025-10-25', end: '2025-10-28', color: 'limegreen' },
+  { name: '会議2', start: '2025-10-21', end: '2025-10-21', color: 'deepskyblue' },
+  { name: '旅行', start: '2025-10-23', end: '2025-10-24', color: 'navy' },
+  { name: 'ミーティング', start: '2025-10-28', end: '2025-10-28', color: 'blue' },
+  { name: '会議3', start: '2025-10-12', end: '2025-10-12', color: 'deepskyblue' },
+  { name: '誕生日', start: '2025-10-30', end: '2025-10-30', color: 'orange' }
 ]
 const selectedEvent = ref<CalendarEvent | null>(null)
 /*======EventCalendar:end=====*/
@@ -195,7 +194,7 @@ const selectedEvent = ref<CalendarEvent | null>(null)
     <PageTitle>RevueKitz</PageTitle>
     <TabPanel
       style="height: 100vh"
-      :tabs="['buttons', 'displays', 'fields', 'icons', 'layouts', 'lists', 'tables','calendars']"
+      :tabs="['buttons', 'displays', 'fields', 'icons', 'layouts', 'lists', 'tables', 'calendars']"
     >
       <template v-slot:content0>
         <section>
@@ -392,26 +391,22 @@ const selectedEvent = ref<CalendarEvent | null>(null)
         <section>
           <h3>FileDnd</h3>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <FileDnd
-              v-model="selectedFiles"
-              style="width: 400px;" 
-              accept="image/*,.pdf,.docx"
-             />
-            <p v-if="selectedFiles.length > 0">
+            <FileDnd v-model="selectedFiles" style="width: 400px" accept="image/*,.pdf,.docx" />
+            <div v-if="selectedFiles.length > 0">
               Selected Files:
               <ul>
                 <li v-for="(file, i) in selectedFiles" :key="i">
                   {{ file.name }} ({{ (file.size / 1024).toFixed(1) }} KB)
                 </li>
               </ul>
-            </p>
+            </div>
           </div>
           <div><strong>Selected Files:</strong> {{ selectedFiles.length }}</div>
         </section>
         <section>
           <h3>FileField</h3>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <FileField v-model="fileData" >Files</FileField>
+            <FileField v-model="fileData">Files</FileField>
           </div>
           <div>
             <ul>
@@ -652,7 +647,7 @@ const selectedEvent = ref<CalendarEvent | null>(null)
                 { id: '1', title: 'Custom Item #1', value: 1, href: '#' },
                 { id: '2', title: 'Custom Item #2', value: 2 }
               ]"
-              @update:value="(value:Item) => console.log(value)"
+              @update:value="(value: Item) => console.log(value)"
             />
           </div>
         </section>
@@ -751,20 +746,20 @@ const selectedEvent = ref<CalendarEvent | null>(null)
           <h3>DataTable</h3>
           <div style="margin-top: 15px; margin-bottom: 15px">
             <DataTable
-              :searchMode=true
-              :paginationMode=true
-              :selectable = true
-              :striped = true
+              :searchMode="true"
+              :paginationMode="true"
+              :selectable="true"
+              :striped="true"
               :headers="['Date', 'Title', 'Content']"
               :items="tableItems"
               v-model="targetData"
               steps="5"
-              sortType='desc'
+              sortType="desc"
             />{{ targetData }}
           </div>
         </section>
       </template>
-            <template v-slot:content7>
+      <template v-slot:content7>
         <section>
           <h3>EventCalendar</h3>
           <div>
@@ -772,15 +767,10 @@ const selectedEvent = ref<CalendarEvent | null>(null)
             <div v-if="selectedEvent">
               {{ selectedEvent.name }} ({{ selectedEvent.start }} - {{ selectedEvent.end }})
             </div>
-            <div v-else>
-              まだイベントが選択されていません
-            </div>
+            <div v-else>まだイベントが選択されていません</div>
 
             <!-- カレンダー -->
-            <EventCalendar 
-              v-model="selectedEvent" 
-              :events="events" 
-            />
+            <EventCalendar v-model="selectedEvent" :events="events" />
           </div>
         </section>
       </template>
