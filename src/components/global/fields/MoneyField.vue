@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 
 // props
@@ -38,6 +38,10 @@ const props = defineProps({
   isReadonly: {
     type: Boolean,
     default: false
+  },
+  styleReset: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -54,14 +58,16 @@ const bindingClass = computed(() => {
 const emit = defineEmits(['update:modelValue'])
 const errorMessage = ref('')
 
-const updateValue = (event) => {
-  let value = event.target.value
+const updateValue = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  let value = target.value
+
   value = formatNumberToMoney(value)
 
-  // Check min and max
-  const numValue = parseFloat(value.replace(/,/g, ''))
-  const min = parseFloat(props.min)
-  const max = parseFloat(props.max)
+  const numValue = Number(value.replace(/,/g, ''))
+
+  const min = props.min !== '' ? Number(props.min) : NaN
+  const max = props.max !== '' ? Number(props.max) : NaN
 
   if (!isNaN(min) && numValue < min) {
     errorMessage.value = `Value should be greater than or equal to ${min}`
@@ -77,14 +83,20 @@ const updateValue = (event) => {
 }
 
 // methods
-const formatNumberToMoney = (targetValue) => {
-  let formattedValue = targetValue
+const formatNumberToMoney = (targetValue: string | number) => {
+  const value = String(targetValue).replace(/,/g, '')
 
-  if (Number(formattedValue)) {
-    formattedValue = Number(formattedValue).toLocaleString()
+  if (value === '') {
+    return ''
   }
 
-  return formattedValue ? formattedValue.toLocaleString() : formattedValue
+  const numberValue = Number(value)
+
+  if (Number.isNaN(numberValue)) {
+    return ''
+  }
+
+  return numberValue.toLocaleString()
 }
 </script>
 
@@ -100,7 +112,7 @@ const formatNumberToMoney = (targetValue) => {
       :readonly="props.isReadonly"
       :disabled="props.isDisabled"
       @change="updateValue"
-      required="ture"
+      required="true"
     />
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div>

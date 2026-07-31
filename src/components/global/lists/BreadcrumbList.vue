@@ -1,5 +1,11 @@
-<script setup>
-import { defineProps, computed } from 'vue'
+<script setup lang="ts">
+import { computed, PropType } from 'vue'
+
+//interface
+interface BreadcrumbItem {
+  name: string
+  href?: string
+}
 
 //props
 const props = defineProps({
@@ -16,8 +22,8 @@ const props = defineProps({
     default: ''
   },
   items: {
-    type: Array,
-    validator: (value) => {
+    type: Array as PropType<BreadcrumbItem[]>,
+    validator: (value: BreadcrumbItem[]) => {
       return value.every(
         (item) =>
           typeof item.name === 'string' &&
@@ -40,9 +46,12 @@ const bindingClass = computed(() => {
 <template>
   <ol :id="id" :class="bindingClass" :style="props.style">
     <li v-for="(item, index) in props.items" :key="index">
-      <span v-if="item.href === undefined" :href="item.href">{{ item.name }}</span>
-      <a v-else :href="item.href">{{ item.name }}</a>
-      <span v-if="index !== items.length - 1">/</span>
+      <span v-if="item.href === undefined">
+        {{ item.name }}
+      </span>
+      <a v-else :href="item.href">
+        {{ item.name }}
+      </a>
     </li>
   </ol>
 </template>

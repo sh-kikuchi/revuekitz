@@ -93,31 +93,41 @@ import { BasicButton } from 'revuekitz'
 
 ### 5. Release Note
 
-#### Updates in v1.3.18
+#### # Updates in v1.4.0
 
-<small>Released on 2026-04-29</small>
+<small>Released on 2026-07-31</small>
 
-- **EventCalendar (Update)**
+##### TypeScript Support (Update)
 
-- Improved layout behavior when the calendar overflows its container.<br>
+- Improved TypeScript support across RevueKitz components.
+  RevueKitz全体でTypeScript対応を強化しました。
 
-  - カレンダーは約840pxの幅を持つため、コンテナからはみ出した場合にスクロールできるようスタイルを修正しました。
+- Added and refined type definitions for props, events, and component APIs.
+  Props・イベント・コンポーネントAPIの型定義を追加・改善しました。
 
-- Notes<br>
+- Fixed various TypeScript errors and warnings to improve compatibility with modern Vue tooling.
+  最新のVue開発環境で発生するTypeScriptのエラーや警告を修正しました。
 
-  - Future support for dynamic style changes (such as responsive behavior or user-configurable settings) is under consideration.<br>
-  - 今後、スタイルの動的な変更（レスポンシブ対応やユーザー設定による切り替えなど）については検討予定です。
+##### Vue Ecosystem Upgrade
 
-```vue
-<DataTable
-  :searchMode="true"
-  :paginationMode="true"
-  :selectable="true"
-  :striped="true"
-  :headers="['Date', 'Title', 'Content']"
-  :items="tableItems"
-  v-model="targetData"
-  steps="5"
-  sortType="desc"
-/>
-```
+- Upgraded the project to the latest Vue 3 ecosystem.
+  Vue 3エコシステムを最新バージョンへアップデートしました。
+
+- Updated development dependencies, including Vite, Vue Plugin, TypeScript, and related tooling.
+  Vite・Vue Plugin・TypeScriptをはじめとする開発ツールを最新版へ更新しました。
+
+- Improved compatibility with recent versions of Vue, Vite, and `vue-tsc`.
+  最新のVue・Vite・`vue-tsc`との互換性を向上させました。
+
+##### Internal Improvements
+
+- Refactored component typings for better IDE autocompletion and type inference.
+  コンポーネントの型定義を見直し、IDEでの補完や型推論を改善しました。
+
+- Improved maintainability and developer experience for future component development.
+  保守性および開発体験（Developer Experience）を向上させました。
+
+##### Notes
+
+- This release mainly focuses on TypeScript support and dependency updates. No major API changes have been introduced.
+  今回のリリースは、TypeScript対応と依存ライブラリの更新が中心です。大きなAPI変更はありません。
