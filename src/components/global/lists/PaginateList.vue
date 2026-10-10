@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, type Ref, computed, onMounted, defineEmits } from 'vue'
+import { ref, type Ref, computed, onMounted } from 'vue'
 
 const props = defineProps({
   id: {
