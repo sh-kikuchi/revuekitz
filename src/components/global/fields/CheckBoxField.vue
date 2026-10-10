@@ -51,6 +51,10 @@ const props = defineProps({
   isReadonly: {
     type: Boolean,
     default: false
+  },
+  isRequired: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -98,6 +102,7 @@ onMounted(() => {
       :value="props.item"
       :disabled="props.isDisabled"
       :readonly="props.isReadonly"
+      :required="props.isRequired"
       v-model="itemChecked"
       @input="updateValue"
     /><label class="revuekitz-label">{{ label }}</label>

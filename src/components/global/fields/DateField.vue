@@ -19,7 +19,8 @@ const props = defineProps({
   minlength: [String, Number],
   maxlength: [String, Number],
   isDisabled: Boolean,
-  isReadonly: Boolean
+  isReadonly: Boolean,
+  isRequired: Boolean
 })
 
 // Binding class
@@ -56,6 +57,7 @@ watch(
     :max="props.maxlength"
     :readonly="props.isReadonly"
     :disabled="props.isDisabled"
+    :required="props.isRequired"
     :value="internalValue"
     @input="updateValue"
   />

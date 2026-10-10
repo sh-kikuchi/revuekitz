@@ -93,6 +93,36 @@ import { BasicButton } from 'revuekitz'
 
 ### 5. Release Note
 
+#### # Updates in v1.4.1
+
+<small>Released on 2026-10-10</small>
+
+##### Required Validation (Add)
+
+- Added an `isRequired` prop to `TextField`, `MultiLineField`, `DateField`, `NumberField`, `SelectField`, `RadioField`, `CheckBoxField`, `FileField`, and `MoneyField`, mapped to the native HTML `required` attribute.
+  `TextField`・`MultiLineField`・`DateField`・`NumberField`・`SelectField`・`RadioField`・`CheckBoxField`・`FileField`・`MoneyField`に`isRequired`propを追加し、ネイティブのHTML`required`属性と連動するようにしました。
+
+- `MoneyField` previously always rendered with a hardcoded `required` attribute; this is now controlled by `isRequired` (default `false`). If you relied on the old always-required behavior, pass `:isRequired="true"` explicitly.
+  `MoneyField`は以前は`required`属性が常に固定で付与されていましたが、`isRequired`（デフォルト`false`）で制御できるように変更しました。従来の常に必須だった挙動に依存していた場合は、明示的に`:isRequired="true"`を指定してください。
+
+##### Disabled / Readonly Consistency (Add)
+
+- Added `isDisabled` / `isReadonly` props to `ColorField`, `ToggleSwitch`, `SelectField`, and `FileDnd`, matching the other field components. Since native `readonly` has no effect on checkboxes and `<select>`, readonly behavior for `ToggleSwitch` and `SelectField` is enforced by reverting the value on change.
+  `ColorField`・`ToggleSwitch`・`SelectField`・`FileDnd`に`isDisabled`/`isReadonly`propを追加し、他のFieldコンポーネントと仕様を揃えました。チェックボックスや`<select>`はネイティブの`readonly`が効かないため、`ToggleSwitch`と`SelectField`では変更イベント側で値を戻すことで読み取り専用の挙動を実現しています。
+
+##### MultiLineField Improvements (Fix/Add)
+
+- Fixed `resize`, which was previously bound as an invalid HTML attribute and had no effect; it is now merged into `style` correctly.
+  これまで無効なHTML属性としてバインドされ効果がなかった`resize`を、`style`に正しくマージされるように修正しました。
+
+- Added a character counter (`current length / maxlength`) shown below the textarea when `maxlength` is set, turning blue while under `minlength` and red once `maxlength` is reached.
+  `maxlength`を設定した場合にテキストエリア下へ文字数カウンター（`現在の文字数 / maxlength`）を表示するようにしました。`minlength`未達時は青字、`maxlength`到達時は赤字になります。
+
+##### DataTable Width Options (Add)
+
+- Added `tableWidth` and `columnWidths` props to control the overall table width and per-column widths via `<colgroup>`.
+  テーブル全体の幅と列ごとの幅を`<colgroup>`で指定できる`tableWidth`・`columnWidths`propを追加しました。
+
 #### # Updates in v1.4.0
 
 <small>Released on 2026-07-31</small>

@@ -39,6 +39,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  isRequired: {
+    type: Boolean,
+    default: false
+  },
   styleReset: {
     type: Boolean,
     default: false
@@ -111,8 +115,8 @@ const formatNumberToMoney = (targetValue: string | number) => {
       :value="formatNumberToMoney(props.modelValue)"
       :readonly="props.isReadonly"
       :disabled="props.isDisabled"
+      :required="props.isRequired"
       @change="updateValue"
-      required="true"
     />
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div>

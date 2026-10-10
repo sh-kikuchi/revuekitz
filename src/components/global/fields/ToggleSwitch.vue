@@ -17,13 +17,26 @@ const props = defineProps({
   modelValue: {
     type: Boolean,
     default: false
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false
+  },
+  isReadonly: {
+    type: Boolean,
+    default: false
   }
 })
 
 const targetValue = ref(false)
 const emit = defineEmits(['update:modelValue'])
 const updateValue = (event: Event) => {
-  targetValue.value = (event.target as HTMLInputElement).checked
+  const target = event.target as HTMLInputElement
+  if (props.isReadonly) {
+    target.checked = targetValue.value
+    return
+  }
+  targetValue.value = target.checked
   emit('update:modelValue', targetValue.value)
 }
 
@@ -75,8 +88,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <label :id="props.id" :class="bindingClass">
-    <input type="checkbox" :checked="targetValue" @change="updateValue" />
+  <label :id="props.id" :class="[bindingClass, { 'is-disabled': props.isDisabled }]">
+    <input
+      type="checkbox"
+      :checked="targetValue"
+      :disabled="props.isDisabled"
+      :readonly="props.isReadonly"
+      @change="updateValue"
+    />
     <span class="slider round" :style="bindingStyle"></span>
   </label>
 </template>
@@ -86,6 +105,15 @@ onMounted(() => {
   position: relative;
   display: inline-block;
   cursor: pointer;
+}
+
+.revuekitz-toggle-switch.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.revuekitz-toggle-switch.is-disabled input {
+  cursor: not-allowed;
 }
 
 .revuekitz-toggle-switch input {

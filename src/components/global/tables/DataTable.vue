@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, type PropType } from 'vue'
 import PaginateList from '../lists/PaginateList.vue'
 import TextField from '../fields/TextField.vue'
 import CheckBoxField from '../fields/CheckBoxField.vue'
@@ -58,6 +58,14 @@ const props = defineProps({
   selectable: {
     type: Boolean,
     default: true
+  },
+  tableWidth: {
+    type: String,
+    default: ''
+  },
+  columnWidths: {
+    type: Array as PropType<string[]>,
+    default: () => []
   }
 })
 
@@ -164,7 +172,22 @@ const getDispItems = (dispArray: []) => {
     <TextField :text="state.search" v-model="state.search" />
   </div>
   <div class="revuekitz-data-table" :class="{ striped: props.striped }">
-    <table :class="{ selectable: props.selectable }">
+    <table
+      :class="{
+        selectable: props.selectable,
+        'default-width': !props.tableWidth,
+        'fixed-layout': props.columnWidths.length > 0
+      }"
+      :style="props.tableWidth ? { width: props.tableWidth } : {}"
+    >
+      <colgroup v-if="props.columnWidths.length">
+        <col v-if="props.selectable" style="width: 40px" />
+        <col
+          v-for="(width, colIndex) in props.columnWidths"
+          :key="colIndex"
+          :style="{ width: width }"
+        />
+      </colgroup>
       <thead>
         <tr>
           <th v-if="props.selectable">
@@ -227,19 +250,27 @@ label {
 }
 
 .revuekitz-data-table > table {
-  max-width: 1200px;
-  min-width: 360px;
   margin: 0 auto;
   border-collapse: collapse;
+}
+.revuekitz-data-table > table.default-width {
+  max-width: 1200px;
+  min-width: 360px;
+}
+.revuekitz-data-table > table.fixed-layout {
+  table-layout: fixed;
 }
 
 .revuekitz-data-table > table td,
 th {
   text-align: left;
   padding: 4px;
+  text-wrap: wrap;
+}
+.revuekitz-data-table > table:not(.fixed-layout) td,
+.revuekitz-data-table > table:not(.fixed-layout) th {
   min-width: 40px;
   max-width: 200px;
-  text-wrap: wrap;
 }
 .revuekitz-data-table table.selectable th:first-child,
 .revuekitz-data-table table.selectable td:first-child {

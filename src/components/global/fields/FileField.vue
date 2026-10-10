@@ -34,6 +34,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  isRequired: {
+    type: Boolean,
+    default: false
+  },
   multiple: {
     type: Boolean,
     default: false
@@ -73,6 +77,7 @@ const getFileData = () => {
       :style="props.style"
       :disabled="props.isDisabled"
       :readonly="props.isReadonly"
+      :required="props.isRequired"
       :accept="props.accept"
       ref="preview"
       @change="getFileData"

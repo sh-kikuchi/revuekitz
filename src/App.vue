@@ -365,6 +365,8 @@ const selectedEvent = ref<CalendarEvent | null>(null)
               name="color_field_name"
               v-model="selectedColor"
               :styleReset="false"
+              :isDisabled="false"
+              :isReadonly="false"
             />
           </div>
           <div>{{ selectedColor }}</div>
@@ -391,7 +393,13 @@ const selectedEvent = ref<CalendarEvent | null>(null)
         <section>
           <h3>FileDnd</h3>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <FileDnd v-model="selectedFiles" style="width: 400px" accept="image/*,.pdf,.docx" />
+            <FileDnd
+              v-model="selectedFiles"
+              style="width: 400px"
+              accept="image/*,.pdf,.docx"
+              :isDisabled="false"
+              :isReadonly="false"
+            />
             <div v-if="selectedFiles.length > 0">
               Selected Files:
               <ul>
@@ -444,10 +452,13 @@ const selectedEvent = ref<CalendarEvent | null>(null)
               v-model="longTextValue"
               :isDisabled="false"
               :isReadonly="false"
+              :isRequired="true"
               placeholder="placeholderText"
-              :maxlength="500"
+              :maxlength="50"
+              :minlength="10"
               :rows="3"
               :cols="30"
+              resize="none"
             />
             <div>{{ longTextValue }}</div>
           </div>
@@ -510,6 +521,8 @@ const selectedEvent = ref<CalendarEvent | null>(null)
               :initText="'Please select an option'"
               :options="optionItems"
               v-model="selectedItem"
+              :isDisabled="false"
+              :isReadonly="false"
             />
           </div>
           <div>{{ selectedItem }}</div>
@@ -539,7 +552,13 @@ const selectedEvent = ref<CalendarEvent | null>(null)
           <h3>ToggleSwitch</h3>
           <small>There are S, M, and L sizes available.</small>
           <div style="margin-top: 15px; margin-bottom: 15px">
-            <ToggleSwitch size="L" backgroundColor="red" v-model="toggleSwitchChecked" />
+            <ToggleSwitch
+              size="L"
+              backgroundColor="red"
+              v-model="toggleSwitchChecked"
+              :isDisabled="false"
+              :isReadonly="false"
+            />
             <div>Checked：{{ toggleSwitchChecked }}</div>
           </div>
         </section>
@@ -755,6 +774,8 @@ const selectedEvent = ref<CalendarEvent | null>(null)
               v-model="targetData"
               steps="5"
               sortType="desc"
+              tableWidth="1200px"
+              :columnWidths="['200px', '200px', 'auto']"
             />{{ targetData }}
           </div>
         </section>

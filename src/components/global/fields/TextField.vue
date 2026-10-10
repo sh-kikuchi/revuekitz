@@ -47,6 +47,10 @@ const props = defineProps({
   isReadonly: {
     type: Boolean,
     default: false
+  },
+  isRequired: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -74,6 +78,7 @@ const updateValue = (event: Event) => {
     :maxlength="props.maxlength"
     :readonly="props.isReadonly"
     :disabled="props.isDisabled"
+    :required="props.isRequired"
     @input="updateValue"
   />
 </template>

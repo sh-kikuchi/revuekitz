@@ -30,6 +30,14 @@ const props = defineProps({
   modelValue: {
     type: String,
     default: ''
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false
+  },
+  isReadonly: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -56,6 +64,8 @@ const setSelectedColor = (event: Event) => {
     :class="bindingClass"
     :style="props.style"
     :name="props.name"
+    :disabled="props.isDisabled"
+    :readonly="props.isReadonly"
     v-model="selectedColor"
     @change="setSelectedColor"
   />
@@ -73,5 +83,9 @@ const setSelectedColor = (event: Event) => {
 }
 .revuekitz-color-field::-webkit-color-swatch {
   border-radius: 50%;
+}
+.revuekitz-color-field[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 </style>

@@ -42,6 +42,10 @@ const props = defineProps({
   isReadonly: {
     type: Boolean,
     default: false
+  },
+  isRequired: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -72,6 +76,7 @@ const updateValue = (event: Event) => {
         :style="{ accentColor: props.accentColor }"
         :disabled="props.isDisabled"
         :readonly="props.isReadonly"
+        :required="props.isRequired"
         :checked="modelValue === item"
         v-model="selectedItem"
         @change="updateValue"

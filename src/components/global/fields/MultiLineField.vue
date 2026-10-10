@@ -29,6 +29,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  isRequired: {
+    type: Boolean,
+    default: false
+  },
   placeholder: {
     type: String,
     default: ''
@@ -56,6 +60,10 @@ const props = defineProps({
   modelValue: {
     type: String,
     default: ''
+  },
+  resize: {
+    type: String,
+    default: ''
   }
 })
 
@@ -76,21 +84,34 @@ const updateValue = (event: Event) => {
 }
 </script>
 <template>
-  <!-- eslint-disable-next-line vue/no-parsing-error -->
-  <textarea
-    :id="props.id"
-    :class="bindingClass"
-    :name="props.name"
-    :style="props.style"
-    :value="props.modelValue"
-    :disabled="props.isDisabled"
-    :readonly="props.isReadonly"
-    :maxlength="props.maxlength"
-    :minlength="props.minlength"
-    :rows="props.rows"
-    :cols="props.cols"
-    @input="updateValue"
-  ></textarea>
+  <div class="revuekitz-multi-line-field-wrapper">
+    <textarea
+      :id="props.id"
+      :class="bindingClass"
+      :name="props.name"
+      :style="[props.style, props.resize ? { resize: props.resize } : {}]"
+      :value="props.modelValue"
+      :placeholder="props.placeholder"
+      :disabled="props.isDisabled"
+      :readonly="props.isReadonly"
+      :required="props.isRequired"
+      :maxlength="props.maxlength"
+      :minlength="props.minlength"
+      :rows="props.rows"
+      :cols="props.cols"
+      @input="updateValue"
+    ></textarea>
+    <div
+      v-if="props.maxlength"
+      class="revuekitz-multi-line-field-counter"
+      :class="{
+        'is-under-limit': props.minlength > 0 && props.modelValue.length < props.minlength,
+        'is-over-limit': props.modelValue.length >= props.maxlength
+      }"
+    >
+      {{ props.modelValue.length }} / {{ props.maxlength }}
+    </div>
+  </div>
 </template>
 <style scoped>
 .revuekitz-multi-line-field {
@@ -102,5 +123,18 @@ textarea.revuekitz-multi-line-field[disabled] {
   color: #417bbc;
   background-color: #e2e8e7;
   cursor: not-allowed;
+}
+.revuekitz-multi-line-field-wrapper {
+  font-size: 10.5px;
+  display: inline-block;
+}
+.revuekitz-multi-line-field-counter {
+  text-align: right;
+}
+.revuekitz-multi-line-field-counter.is-under-limit {
+  color: blue;
+}
+.revuekitz-multi-line-field-counter.is-over-limit {
+  color: red;
 }
 </style>

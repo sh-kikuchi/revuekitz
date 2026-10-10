@@ -11,6 +11,8 @@ const props = defineProps<{
   modelValue: File[]
   style?: string | Record<string, any>
   accept?: string
+  isDisabled?: boolean
+  isReadonly?: boolean
 }>()
 
 // emit
@@ -38,6 +40,8 @@ const handleDrop = (e: DragEvent) => {
   e.preventDefault()
   e.stopPropagation()
   dropAreaRef.value?.classList.remove('dragover')
+
+  if (props.isDisabled || props.isReadonly) return
 
   let files = e.dataTransfer?.files ? Array.from(e.dataTransfer.files) : []
 
@@ -73,6 +77,7 @@ const checkAccept = (file: File, accept?: string) => {
 const handleDragOver = (e: DragEvent) => {
   e.preventDefault()
   e.stopPropagation()
+  if (props.isDisabled || props.isReadonly) return
   dropAreaRef.value?.classList.add('dragover')
 }
 
@@ -87,6 +92,7 @@ const handleDragLeave = (e: DragEvent) => {
   <div class="revuekitz-file-drop" :style="props.style">
     <div
       class="revuekitz-file-drop-area"
+      :class="{ 'is-disabled': props.isDisabled }"
       ref="dropAreaRef"
       @drop="handleDrop"
       @dragover="handleDragOver"
@@ -94,7 +100,14 @@ const handleDragLeave = (e: DragEvent) => {
     >
       <p>Drag & drop your files here <br />or</p>
       <div class="revuekitz-file-field-wrap">
-        <FileField class="revuekitz-file-field" v-model="fileList" :accept="props.accept" multiple>
+        <FileField
+          class="revuekitz-file-field"
+          v-model="fileList"
+          :accept="props.accept"
+          :isDisabled="props.isDisabled"
+          :isReadonly="props.isReadonly"
+          multiple
+        >
           Files
         </FileField>
       </div>
@@ -127,6 +140,11 @@ const handleDragLeave = (e: DragEvent) => {
 .revuekitz-file-drop-area.dragover {
   border: 2px solid lightgrey;
   background: lightgrey;
+}
+
+.revuekitz-file-drop-area.is-disabled {
+  background-color: #e2e8e7;
+  cursor: not-allowed;
 }
 
 .revuekitz-file-field-wrap {

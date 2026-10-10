@@ -44,6 +44,18 @@ const props = defineProps({
       { text: 'Two', value: 'B' },
       { text: 'Three', value: 'C' }
     ]
+  },
+  isRequired: {
+    type: Boolean,
+    default: false
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false
+  },
+  isReadonly: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -59,8 +71,12 @@ const bindingClass = computed(() => {
 //emit
 const emit = defineEmits(['update:modelValue'])
 const updateValue = (event: Event) => {
-  const targetValue = (event.target as HTMLInputElement).value
-  emit('update:modelValue', (selectedItem.value = targetValue))
+  const target = event.target as HTMLSelectElement
+  if (props.isReadonly) {
+    target.value = selectedItem.value
+    return
+  }
+  emit('update:modelValue', (selectedItem.value = target.value))
 }
 
 //selected item
@@ -72,6 +88,8 @@ const selectedItem = ref(props.modelValue)
     :class="bindingClass"
     :name="props.name"
     :style="props.style"
+    :required="props.isRequired"
+    :disabled="props.isDisabled"
     v-model="selectedItem"
     @change="updateValue"
   >
@@ -95,6 +113,11 @@ const selectedItem = ref(props.modelValue)
 }
 .revuekitz-select-field select::-ms-expand {
   display: none;
+}
+.revuekitz-select-field select[disabled] {
+  color: #417bbc;
+  background-color: #e2e8e7;
+  cursor: not-allowed;
 }
 .revuekitz-select-field.dropdown-wrapper {
   position: relative;
