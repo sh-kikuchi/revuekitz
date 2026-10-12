@@ -106,6 +106,18 @@ import { BasicButton } from 'revuekitz'
 
 ### 5. Release Note
 
+#### # Updates in v1.4.3
+
+<small>Released on 2026-10-12</small>
+
+##### Stylesheet Path (Fix)
+
+- Added an export for `revuekitz/dist/revuekitz.css`, matching the actual built stylesheet. Previously `package.json` exported only `./dist/style.css`, which did not exist in the build output.
+  実際にビルドされるスタイルシートに合わせて、`revuekitz/dist/revuekitz.css`のexportを追加しました。これまでは`package.json`でビルド成果物に存在しない`./dist/style.css`のみをexportしていました。
+
+- The old path `revuekitz/dist/style.css` now points to the same file and still works for now, but it is deprecated and will be removed in a future major version. Please update your import to `revuekitz/dist/revuekitz.css`.
+  旧パス`revuekitz/dist/style.css`は同じファイルを参照するようにしたため当面は使えますが、非推奨で今後のメジャーバージョンで削除予定です。importを`revuekitz/dist/revuekitz.css`に書き換えてください。
+
 #### # Updates in v1.4.2
 
 <small>Released on 2026-10-12</small>
