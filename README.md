@@ -14,6 +14,18 @@
 
 ### 3. How to Use
 
+> [!IMPORTANT]
+> **Stylesheet path changed (v1.4.3~)**
+> The CSS file is now `revuekitz/dist/revuekitz.css`. The old path `revuekitz/dist/style.css` still works for now, but it is deprecated and will be removed in a future major version. Please update your import.  
+> CSS ファイルのパスが `revuekitz/dist/revuekitz.css` に変わりました。旧パス `revuekitz/dist/style.css` も当面は使えますが非推奨で、今後のメジャーバージョンで削除予定です。import の書き換えをお願いします。
+>
+> ```js
+> // Before
+> import 'revuekitz/dist/style.css'
+> // After
+> import 'revuekitz/dist/revuekitz.css'
+> ```
+
 ```js
 npm install revuekitz
 ```
@@ -21,7 +33,7 @@ npm install revuekitz
 When importing components
 
 ```js
-import 'revuekitz/dist/style.css' // Import styles
+import 'revuekitz/dist/revuekitz.css' // Import styles
 import { BasicButton } from 'revuekitz'
 ```
 

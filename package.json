@@ -38,7 +38,8 @@
       "import": "./dist/revuekitz.es.js",
       "require": "./dist/revuekitz.umd.js"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./dist/revuekitz.css": "./dist/revuekitz.css",
+    "./dist/style.css": "./dist/revuekitz.css"
   },
   "scripts": {
     "dev": "vite",
