@@ -82,6 +82,7 @@ import { BasicButton } from 'revuekitz'
 - [BreadcrumbList](https://sh-revue.net/documents/revuekitz/603_breadcumb_list)
 - [PaginateList](https://sh-revue.net/documents/revuekitz/604_paginate_list)
 - [TreeList](https://sh-revue.net/documents/revuekitz/605_tree_list)
+- [ToDoList](https://sh-revue.net/documents/revuekitz/606_to_do_list)
 
 #### Tables
 
@@ -92,6 +93,18 @@ import { BasicButton } from 'revuekitz'
 - [EventCalendar](https://sh-revue.net/documents/revuekitz/801_event_calendar)
 
 ### 5. Release Note
+
+#### # Updates in v1.4.2
+
+<small>Released on 2026-10-12</small>
+
+##### Documentation (Update)
+
+- Added the missing `ToDoList` link to the UI Kitz list.
+  UI Kitz一覧に記載が漏れていた`ToDoList`のリンクを追加しました。
+
+- No changes to component code in this release.
+  今回のリリースでは、コンポーネントのコードに変更はありません。
 
 #### # Updates in v1.4.1
 
@@ -118,10 +131,18 @@ import { BasicButton } from 'revuekitz'
 - Added a character counter (`current length / maxlength`) shown below the textarea when `maxlength` is set, turning blue while under `minlength` and red once `maxlength` is reached.
   `maxlength`を設定した場合にテキストエリア下へ文字数カウンター（`現在の文字数 / maxlength`）を表示するようにしました。`minlength`未達時は青字、`maxlength`到達時は赤字になります。
 
-##### DataTable Width Options (Add)
+##### DataTable Width Options (Add/Update)
 
 - Added `tableWidth` and `columnWidths` props to control the overall table width and per-column widths via `<colgroup>`.
   テーブル全体の幅と列ごとの幅を`<colgroup>`で指定できる`tableWidth`・`columnWidths`propを追加しました。
+
+- Table styles now adapt to the width options. The default `max-width: 1200px` / `min-width: 360px` applies only when `tableWidth` is not set, and when `columnWidths` is set the table switches to `table-layout: fixed` and the per-cell `min-width: 40px` / `max-width: 200px` limits are lifted so the specified widths take effect. The checkbox column for `selectable` is fixed at `40px`.
+  幅指定に応じてテーブルのスタイルが切り替わるようにしました。デフォルトの`max-width: 1200px`/`min-width: 360px`は`tableWidth`未指定時のみ適用され、`columnWidths`指定時は`table-layout: fixed`に切り替わるとともに、セルごとの`min-width: 40px`/`max-width: 200px`の制限を解除して指定幅がそのまま反映されるようにしました。`selectable`時のチェックボックス列は`40px`固定です。
+
+##### TypeScript Error Fix (Fix)
+
+- Removed invalid `defineProps` / `defineEmits` imports from `ModalDialog` and `PaginateList` that caused TS2440 errors. These are compiler macros in `<script setup>` and must not be imported.
+  `ModalDialog`・`PaginateList`でTS2440エラーの原因となっていた`defineProps`/`defineEmits`の不正なimportを削除しました。これらは`<script setup>`のコンパイラマクロのため、importは不要です。
 
 #### # Updates in v1.4.0
 
