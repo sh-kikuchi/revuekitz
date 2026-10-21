@@ -77,6 +77,12 @@ const checkBoxChecked = ref(true)
 const radioCheckedItem = ref('Option 1')
 const rangeValue = ref(123)
 const radioItems = ref(['Option 1', 'Option 2', 'Option 3'])
+const radioPlan = ref('pro')
+const radioPlanItems = [
+  { text: 'Free plan', value: 'free' },
+  { text: 'Pro plan', value: 'pro' },
+  { text: 'Enterprise plan', value: 'enterprise' }
+]
 const selectedItem = ref('C3')
 const optionItems = [
   { text: 'Option 1', value: 'A1' },
@@ -482,6 +488,8 @@ const selectedEvent = ref<CalendarEvent | null>(null)
         </section>
         <section>
           <h3>RadioField</h3>
+          <h4>Pattern 1: string items (label = value)</h4>
+          <div>items: string[]</div>
           <div>
             <RadioField
               :items="radioItems"
@@ -495,6 +503,18 @@ const selectedEvent = ref<CalendarEvent | null>(null)
             />
           </div>
           <div>{{ radioCheckedItem }}</div>
+          <hr />
+          <h4 class="mt-2">Pattern 2: { text, value } items (label and value differ)</h4>
+          <div>items: { text, value }[]</div>
+          <div>
+            <RadioField
+              :items="radioPlanItems"
+              class="radio-field-class"
+              name="radio_plan"
+              v-model="radioPlan"
+            />
+          </div>
+          <div>{{ radioPlan }}</div>
         </section>
         <section>
           <h3>RangeField</h3>
@@ -801,5 +821,9 @@ const selectedEvent = ref<CalendarEvent | null>(null)
 <style>
 section {
   margin: 20px;
+}
+hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 </style>
