@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, useId, PropType } from 'vue'
 
-//reactive data
-const selectedItem = ref<String>('')
+interface RadioItem {
+  text: string
+  value: string
+}
 
 //props
 const props = defineProps({
-  items: Array<string>,
+  items: {
+    type: Array as PropType<(string | RadioItem)[]>,
+    default: () => []
+  },
   id: {
     type: String,
     default: ''
@@ -58,30 +63,38 @@ const bindingClass = computed(() => {
   }
 })
 
+//normalize items: string is used as both text and value
+const normalizedItems = computed<RadioItem[]>(() =>
+  props.items.map((item) => (typeof item === 'string' ? { text: item, value: item } : item))
+)
+
+//unique id per radio input
+const uid = useId()
+const itemId = (index: number) => `${props.id || uid}-${index}`
+
 //emit
 const emit = defineEmits(['update:modelValue'])
 const updateValue = (event: Event) => {
-  const targetValue = (event.target as HTMLInputElement).value
-  emit('update:modelValue', (selectedItem.value = targetValue))
+  emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
 </script>
 <template>
   <div v-bind="$attrs" :class="bindingClass" :style="props.style">
-    <div v-for="(item, index) in props.items" :key="index">
+    <div v-for="(item, index) in normalizedItems" :key="item.value">
       <input
         type="radio"
-        :id="item"
-        :name="props.name[index]"
-        :value="item"
+        :id="itemId(index)"
+        :name="props.name || undefined"
+        :value="item.value"
         :style="{ accentColor: props.accentColor }"
         :disabled="props.isDisabled"
         :readonly="props.isReadonly"
         :required="props.isRequired"
-        :checked="modelValue === item"
-        v-model="selectedItem"
+        :checked="props.modelValue === item.value"
         @change="updateValue"
+        @click="props.isReadonly && $event.preventDefault()"
       />
-      <label :for="item">{{ item }}</label>
+      <label :for="itemId(index)">{{ item.text }}</label>
     </div>
   </div>
 </template>
