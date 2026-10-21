@@ -14,8 +14,7 @@
 
 ### 3. How to Use
 
-> [!IMPORTANT]
-> **Stylesheet path changed (v1.4.3~)**
+> [!IMPORTANT] > **Stylesheet path changed (v1.4.3~)**
 > The CSS file is now `revuekitz/dist/revuekitz.css`. The old path `revuekitz/dist/style.css` still works for now, but it is deprecated and will be removed in a future major version. Please update your import.  
 > CSS ファイルのパスが `revuekitz/dist/revuekitz.css` に変わりました。旧パス `revuekitz/dist/style.css` も当面は使えますが非推奨で、今後のメジャーバージョンで削除予定です。import の書き換えをお願いします。
 >
@@ -106,103 +105,49 @@ import { BasicButton } from 'revuekitz'
 
 ### 5. Release Note
 
-#### # Updates in v1.4.3
+#### # Updates in v1.4.4
 
-<small>Released on 2026-10-12</small>
+<small>Released on 2026-10-21</small>
 
-##### Stylesheet Path (Fix)
+##### RadioField Improvements (Fix/Add/Update)
 
-- Added an export for `revuekitz/dist/revuekitz.css`, matching the actual built stylesheet. Previously `package.json` exported only `./dist/style.css`, which did not exist in the build output.
-  実際にビルドされるスタイルシートに合わせて、`revuekitz/dist/revuekitz.css`のexportを追加しました。これまでは`package.json`でビルド成果物に存在しない`./dist/style.css`のみをexportしていました。
+- Fixed the selected state so it is driven only by `modelValue`. The initial value is now reflected reliably, and the selection follows when the parent changes `modelValue` after mount.
+  選択状態を`modelValue`だけで決めるように修正しました。初期値が確実に反映され、マウント後に親から`modelValue`を変更した場合も選択が追従します。
 
-- The old path `revuekitz/dist/style.css` now points to the same file and still works for now, but it is deprecated and will be removed in a future major version. Please update your import to `revuekitz/dist/revuekitz.css`.
-  旧パス`revuekitz/dist/style.css`は同じファイルを参照するようにしたため当面は使えますが、非推奨で今後のメジャーバージョンで削除予定です。importを`revuekitz/dist/revuekitz.css`に書き換えてください。
+- Fixed `name` being split into one character per radio, which prevented the radios from forming a single group. All radios now share the same `name` (no `name` attribute when it is not specified).
+  `name`が1文字ずつ各ラジオに割り当てられ、ラジオが1つのグループにまとまっていなかった不具合を修正しました。全ラジオに同じ`name`が付きます（未指定時は`name`属性なし）。
 
-#### # Updates in v1.4.2
+- `isReadonly` now prevents the selection from changing on click, since native `readonly` has no effect on radio buttons.
+  ラジオボタンではネイティブの`readonly`が効かないため、`isReadonly`指定時はクリックで選択が変わらないようにしました。
 
-<small>Released on 2026-10-12</small>
+- `items` now accepts `{ text, value }` objects in addition to strings, so the label and value can differ. Strings keep working as before, and both forms can be mixed.
+  `items`に文字列に加えて`{ text, value }`形式のオブジェクトも渡せるようにし、ラベルと値を別々に指定できるようにしました。従来の文字列もそのまま使え、混在も可能です。
 
-##### Documentation (Update)
+- **Breaking:** The `id` of each radio input changed from the item value to `{id}-{index}` (an auto-generated unique prefix is used when `id` is not set). This prevents duplicate ids when the same items are used in multiple fields. If your CSS or tests relied on the old ids, please update them.
+  **破壊的変更：** 各ラジオの`id`を、項目の値から`{id}-{index}`の形式に変更しました（`id`未指定時は自動生成の一意な接頭辞を使用）。同じ選択肢のRadioFieldを複数置いても`id`が重複しなくなります。旧`id`に依存したCSSやテストがある場合は修正してください。
 
-- Added the missing `ToDoList` link to the UI Kitz list.
-  UI Kitz一覧に記載が漏れていた`ToDoList`のリンクを追加しました。
+###### Usage / 使用例
 
-- No changes to component code in this release.
-  今回のリリースでは、コンポーネントのコードに変更はありません。
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { RadioField } from 'revuekitz'
 
-#### # Updates in v1.4.1
+// Pattern 1: string items (label = value) / 文字列（ラベル＝値）
+const color = ref('Blue')
+const colorItems = ['Red', 'Blue', 'Green']
 
-<small>Released on 2026-10-10</small>
+// Pattern 2: { text, value } items (label ≠ value) / ラベルと値を分ける
+const plan = ref('pro')
+const planItems = [
+  { text: 'Free plan', value: 'free' },
+  { text: 'Pro plan', value: 'pro' }
+]
+</script>
 
-##### Required Validation (Add)
-
-- Added an `isRequired` prop to `TextField`, `MultiLineField`, `DateField`, `NumberField`, `SelectField`, `RadioField`, `CheckBoxField`, `FileField`, and `MoneyField`, mapped to the native HTML `required` attribute.
-  `TextField`・`MultiLineField`・`DateField`・`NumberField`・`SelectField`・`RadioField`・`CheckBoxField`・`FileField`・`MoneyField`に`isRequired`propを追加し、ネイティブのHTML`required`属性と連動するようにしました。
-
-- `MoneyField` previously always rendered with a hardcoded `required` attribute; this is now controlled by `isRequired` (default `false`). If you relied on the old always-required behavior, pass `:isRequired="true"` explicitly.
-  `MoneyField`は以前は`required`属性が常に固定で付与されていましたが、`isRequired`（デフォルト`false`）で制御できるように変更しました。従来の常に必須だった挙動に依存していた場合は、明示的に`:isRequired="true"`を指定してください。
-
-##### Disabled / Readonly Consistency (Add)
-
-- Added `isDisabled` / `isReadonly` props to `ColorField`, `ToggleSwitch`, `SelectField`, and `FileDnd`, matching the other field components. Since native `readonly` has no effect on checkboxes and `<select>`, readonly behavior for `ToggleSwitch` and `SelectField` is enforced by reverting the value on change.
-  `ColorField`・`ToggleSwitch`・`SelectField`・`FileDnd`に`isDisabled`/`isReadonly`propを追加し、他のFieldコンポーネントと仕様を揃えました。チェックボックスや`<select>`はネイティブの`readonly`が効かないため、`ToggleSwitch`と`SelectField`では変更イベント側で値を戻すことで読み取り専用の挙動を実現しています。
-
-##### MultiLineField Improvements (Fix/Add)
-
-- Fixed `resize`, which was previously bound as an invalid HTML attribute and had no effect; it is now merged into `style` correctly.
-  これまで無効なHTML属性としてバインドされ効果がなかった`resize`を、`style`に正しくマージされるように修正しました。
-
-- Added a character counter (`current length / maxlength`) shown below the textarea when `maxlength` is set, turning blue while under `minlength` and red once `maxlength` is reached.
-  `maxlength`を設定した場合にテキストエリア下へ文字数カウンター（`現在の文字数 / maxlength`）を表示するようにしました。`minlength`未達時は青字、`maxlength`到達時は赤字になります。
-
-##### DataTable Width Options (Add/Update)
-
-- Added `tableWidth` and `columnWidths` props to control the overall table width and per-column widths via `<colgroup>`.
-  テーブル全体の幅と列ごとの幅を`<colgroup>`で指定できる`tableWidth`・`columnWidths`propを追加しました。
-
-- Table styles now adapt to the width options. The default `max-width: 1200px` / `min-width: 360px` applies only when `tableWidth` is not set, and when `columnWidths` is set the table switches to `table-layout: fixed` and the per-cell `min-width: 40px` / `max-width: 200px` limits are lifted so the specified widths take effect. The checkbox column for `selectable` is fixed at `40px`.
-  幅指定に応じてテーブルのスタイルが切り替わるようにしました。デフォルトの`max-width: 1200px`/`min-width: 360px`は`tableWidth`未指定時のみ適用され、`columnWidths`指定時は`table-layout: fixed`に切り替わるとともに、セルごとの`min-width: 40px`/`max-width: 200px`の制限を解除して指定幅がそのまま反映されるようにしました。`selectable`時のチェックボックス列は`40px`固定です。
-
-##### TypeScript Error Fix (Fix)
-
-- Removed invalid `defineProps` / `defineEmits` imports from `ModalDialog` and `PaginateList` that caused TS2440 errors. These are compiler macros in `<script setup>` and must not be imported.
-  `ModalDialog`・`PaginateList`でTS2440エラーの原因となっていた`defineProps`/`defineEmits`の不正なimportを削除しました。これらは`<script setup>`のコンパイラマクロのため、importは不要です。
-
-#### # Updates in v1.4.0
-
-<small>Released on 2026-07-31</small>
-
-##### TypeScript Support (Update)
-
-- Improved TypeScript support across RevueKitz components.
-  RevueKitz全体でTypeScript対応を強化しました。
-
-- Added and refined type definitions for props, events, and component APIs.
-  Props・イベント・コンポーネントAPIの型定義を追加・改善しました。
-
-- Fixed various TypeScript errors and warnings to improve compatibility with modern Vue tooling.
-  最新のVue開発環境で発生するTypeScriptのエラーや警告を修正しました。
-
-##### Vue Ecosystem Upgrade
-
-- Upgraded the project to the latest Vue 3 ecosystem.
-  Vue 3エコシステムを最新バージョンへアップデートしました。
-
-- Updated development dependencies, including Vite, Vue Plugin, TypeScript, and related tooling.
-  Vite・Vue Plugin・TypeScriptをはじめとする開発ツールを最新版へ更新しました。
-
-- Improved compatibility with recent versions of Vue, Vite, and `vue-tsc`.
-  最新のVue・Vite・`vue-tsc`との互換性を向上させました。
-
-##### Internal Improvements
-
-- Refactored component typings for better IDE autocompletion and type inference.
-  コンポーネントの型定義を見直し、IDEでの補完や型推論を改善しました。
-
-- Improved maintainability and developer experience for future component development.
-  保守性および開発体験（Developer Experience）を向上させました。
-
-##### Notes
-
-- This release mainly focuses on TypeScript support and dependency updates. No major API changes have been introduced.
-  今回のリリースは、TypeScript対応と依存ライブラリの更新が中心です。大きなAPI変更はありません。
+<template>
+  <RadioField v-model="color" name="color" :items="colorItems" />
+  <RadioField v-model="plan" name="plan" :items="planItems" />
+  <!-- plan === 'pro' → "Pro plan" is selected / 「Pro plan」が選択された状態で表示 -->
+</template>
+```
