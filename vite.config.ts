@@ -5,9 +5,11 @@ import dts from 'vite-plugin-dts'
 
 export default defineConfig({
   lint: {
+    plugins: ['eslint', 'typescript', 'unicorn', 'oxc', 'vue'],
     jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
     rules: { 'vite-plus/prefer-vite-plus-imports': 'error' },
-    options: { typeAware: true, typeCheck: true }
+    // typeCheck is off: it cannot resolve .vue imports. Use vue-tsc for type checking.
+    options: { typeAware: true, typeCheck: false }
   },
   test: {
     // Vitest v4 compatibility: preserve mock call history.
@@ -35,7 +37,7 @@ export default defineConfig({
   plugins: lazyPlugins(() => [
     vue(),
     dts({
-      outDir: 'dist',
+      outDirs: 'dist',
       insertTypesEntry: true
     })
   ]),

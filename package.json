@@ -48,7 +48,7 @@
     "test:unit": "vp test",
     "test:unit:watch": "vp test --watch",
     "test:unit:ui": "vp test --ui",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "vp lint",
     "format": "vp fmt src/"
   },
   "dependencies": {
@@ -58,16 +58,11 @@
     "vue": "^3.5.40"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.8.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.0.0",
     "@vitejs/plugin-vue": "^6.0.10",
-    "@vue/eslint-config-prettier": "^9.0.0",
-    "@vue/eslint-config-typescript": "^14.9.0",
     "@vue/test-utils": "^2.4.11",
-    "eslint": "^9.39.5",
-    "eslint-plugin-vue": "^10.10.0",
     "jsdom": "^27.0.1",
     "npm-run-all2": "^9.0.3",
     "rollup": "^4.18.1",
