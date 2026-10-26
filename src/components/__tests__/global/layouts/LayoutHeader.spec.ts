@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vite-plus/test'
 import Header from '../../../../components/global/layouts/LayoutHeader.vue'
 
 describe('Header', () => {

@@ -1,9 +1,9 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vite-plus/test'
 import AccordionMenu from '../../../../components/global/lists/AccordionMenu.vue'
 import { shallowMount } from '@vue/test-utils'
 
 describe('AccordionMenu.vue', () => {
-  it('renders correctly', () => {
+  it('renders correctly', async () => {
     const wrapper = shallowMount(AccordionMenu, {
       props: {
         id: 'testId',
@@ -29,15 +29,14 @@ describe('AccordionMenu.vue', () => {
 
     // Test to verify the behavior of click events
     const titleDiv = wrapper.find('.revuekitz-accordion-menu div')
-    titleDiv.trigger('click')
+    await titleDiv.trigger('click')
 
     expect(wrapper.vm.block.open).toBe('List 1') // Verify that the open function is working correctly
 
     // Test to verify the behavior of the transition element
     const ulElement = wrapper.find('.revuekitz-accordion-menu ul')
     // expect(ulElement.isVisible()).toBe(true) // Verify that it is visible in the initial state
-    wrapper.vm.$nextTick(() => {
-      expect(ulElement.isVisible()).toBe(true)
-    })
+    await wrapper.vm.$nextTick()
+    expect(ulElement.isVisible()).toBe(true)
   })
 })

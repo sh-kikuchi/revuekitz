@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vite-plus/test'
 import { mount } from '@vue/test-utils'
 import MultiLineField from '../../../../components/global/fields/MultiLineField.vue'
 

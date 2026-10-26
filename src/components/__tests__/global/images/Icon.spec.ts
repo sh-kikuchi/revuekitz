@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import Icon from '../../../../components/global/icons/SvgIcon.vue'
 import { mdiAccount } from '@mdi/js'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vite-plus/test'
 
 describe('Icon', () => {
   it('sets correct icon path', () => {
