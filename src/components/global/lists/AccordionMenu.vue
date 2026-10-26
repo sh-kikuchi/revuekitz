@@ -63,7 +63,7 @@ const open = (value) => {
 }
 
 const enter = (el: HTMLElement, done: () => void) => {
-  el.offsetHeight // Trigger reflow
+  el.getBoundingClientRect() // Trigger reflow
   el.style.transition = 'opacity 0.5s'
   el.style.opacity = '1'
   done()
