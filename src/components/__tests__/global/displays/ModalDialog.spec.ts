@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vite-plus/test'
 import ModalDialog from '../../../../components/global/displays/ModalDialog.vue'
 import { mount } from '@vue/test-utils'
 

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi } from 'vite-plus/test'
 import CustomMessage from '../../../../components/global/displays/CustomMessage.vue'
 
 describe('CustomMessage', () => {

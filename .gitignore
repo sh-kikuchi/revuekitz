@@ -46,3 +46,4 @@ src/**/*.js
 
 # Doc
 doc
+.vitest/

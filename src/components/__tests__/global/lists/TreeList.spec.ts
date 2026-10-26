@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vite-plus/test'
 // TreeList.spec.ts
 import { mount } from '@vue/test-utils'
 import TreeList from '../../../../components/global/lists/TreeList.vue' // コンポーネントの実際のファイルパスに置き換える
