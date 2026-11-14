@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useId, PropType } from 'vue'
+import { computed, useId, type PropType } from 'vue'
 
 interface RadioItem {
   text: string

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, PropType } from 'vue'
+import { ref, computed, type PropType } from 'vue'
 // eslint-disable-next-line vue/no-dupe-keys
 
 interface Option {

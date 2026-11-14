@@ -105,49 +105,27 @@ import { BasicButton } from 'revuekitz'
 
 ### 5. Release Note
 
-#### # Updates in v1.4.4
+#### # Updates in v1.4.5
 
-<small>Released on 2026-10-21</small>
+<small>Released on 2026-11-14</small>
 
-##### RadioField Improvements (Fix/Add/Update)
+##### DataTable (Fix)
 
-- Fixed the selected state so it is driven only by `modelValue`. The initial value is now reflected reliably, and the selection follows when the parent changes `modelValue` after mount.
-  選択状態を`modelValue`だけで決めるように修正しました。初期値が確実に反映され、マウント後に親から`modelValue`を変更した場合も選択が追従します。
+- **Security:** Cell values are now HTML-escaped before rendering. Previously, a value such as `<img src=x onerror="...">` was rendered as HTML, which could run scripts when the table showed user-supplied data. The search highlight is escaped as well.
+  **セキュリティ：** セルの値をHTMLエスケープしてから描画するようにしました。これまでは`<img src=x onerror="...">`のような値がHTMLとして描画され、ユーザー入力のデータを表示した場合にスクリプトが実行されるおそれがありました。検索時のハイライト部分もエスケープされます。
 
-- Fixed `name` being split into one character per radio, which prevented the radios from forming a single group. All radios now share the same `name` (no `name` attribute when it is not specified).
-  `name`が1文字ずつ各ラジオに割り当てられ、ラジオが1つのグループにまとまっていなかった不具合を修正しました。全ラジオに同じ`name`が付きます（未指定時は`name`属性なし）。
+- Fixed an error when a cell value is `null` or `undefined`. These values (and booleans) are now shown as empty cells.
+  セルの値が`null`や`undefined`のときにエラーになる不具合を修正しました。これらの値（および真偽値）は空のセルとして表示されます。
 
-- `isReadonly` now prevents the selection from changing on click, since native `readonly` has no effect on radio buttons.
-  ラジオボタンではネイティブの`readonly`が効かないため、`isReadonly`指定時はクリックで選択が変わらないようにしました。
+##### CheckBoxField (Fix)
 
-- `items` now accepts `{ text, value }` objects in addition to strings, so the label and value can differ. Strings keep working as before, and both forms can be mixed.
-  `items`に文字列に加えて`{ text, value }`形式のオブジェクトも渡せるようにし、ラベルと値を別々に指定できるようにしました。従来の文字列もそのまま使え、混在も可能です。
+- When `item` is not set, `update:modelValue` now emits `''` instead of `undefined` on check.
+  `item`未指定でチェックしたとき、`update:modelValue`が`undefined`ではなく`''`を送るようにしました。
 
-- **Breaking:** The `id` of each radio input changed from the item value to `{id}-{index}` (an auto-generated unique prefix is used when `id` is not set). This prevents duplicate ids when the same items are used in multiple fields. If your CSS or tests relied on the old ids, please update them.
-  **破壊的変更：** 各ラジオの`id`を、項目の値から`{id}-{index}`の形式に変更しました（`id`未指定時は自動生成の一意な接頭辞を使用）。同じ選択肢のRadioFieldを複数置いても`id`が重複しなくなります。旧`id`に依存したCSSやテストがある場合は修正してください。
+##### Internal / 内部の変更
 
-###### Usage / 使用例
+- Fixed TypeScript type errors in several components (no behavior change).
+  いくつかのコンポーネントの型エラーを修正しました（動作の変更はありません）。
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { RadioField } from 'revuekitz'
-
-// Pattern 1: string items (label = value) / 文字列（ラベル＝値）
-const color = ref('Blue')
-const colorItems = ['Red', 'Blue', 'Green']
-
-// Pattern 2: { text, value } items (label ≠ value) / ラベルと値を分ける
-const plan = ref('pro')
-const planItems = [
-  { text: 'Free plan', value: 'free' },
-  { text: 'Pro plan', value: 'pro' }
-]
-</script>
-
-<template>
-  <RadioField v-model="color" name="color" :items="colorItems" />
-  <RadioField v-model="plan" name="plan" :items="planItems" />
-  <!-- plan === 'pro' → "Pro plan" is selected / 「Pro plan」が選択された状態で表示 -->
-</template>
-```
+- Moved the build and test tooling to Vite 8 / Vitest 4 (Vite+), and replaced ESLint with Oxlint and Oxfmt. This does not affect how the library is used.
+  ビルド・テスト環境をVite 8 / Vitest 4（Vite+）に移行し、ESLintをOxlint・Oxfmtに置き換えました。ライブラリの使い方に影響はありません。

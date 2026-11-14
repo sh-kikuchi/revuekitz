@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vite-plus/test'
 import { shallowMount } from '@vue/test-utils'
 import ToolTip from '../../../../components/global/displays/ToolTip.vue'
 

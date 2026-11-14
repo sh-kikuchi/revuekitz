@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vite-plus/test'
 import Card from '../../../../components/global/displays/CardFlame.vue'
 
 describe('Card', () => {

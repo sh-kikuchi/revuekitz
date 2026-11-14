@@ -1,5 +1,5 @@
 // src/index.ts
-import { App } from 'vue'
+import type { App } from 'vue'
 
 // buttons
 import BasicButton from './components/global/buttons/BasicButton.vue'
@@ -104,8 +104,8 @@ const components = {
 
 export default {
   install(app: App) {
-    Object.keys(components).forEach((key) => {
-      app.component(key, components[key])
+    Object.entries(components).forEach(([key, component]) => {
+      app.component(key, component)
     })
   }
 }

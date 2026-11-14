@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-const loading = ref<Boolean>(true)
+const loading = ref<boolean>(true)
 
 onMounted(() => {
   if (typeof window !== 'undefined') {

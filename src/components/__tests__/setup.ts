@@ -1,4 +1,4 @@
-import { expect, vi } from 'vitest'
+import { expect, vi } from 'vite-plus/test'
 import { config } from '@vue/test-utils'
 
 // Global Vue Test Utils Configuration

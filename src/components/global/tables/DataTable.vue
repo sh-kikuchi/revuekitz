@@ -69,25 +69,38 @@ const props = defineProps({
   }
 })
 
-const highlight = (text: string | number | boolean) => {
-  if (typeof text === 'boolean') {
-    return
+const escapeHtml = (s: string) =>
+  s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+
+const highlight = (text: unknown) => {
+  if (text === null || text === undefined || typeof text === 'boolean') {
+    return ''
   }
 
-  const searchText = typeof text === 'number' ? String(text) : text
+  const searchText = String(text)
   const searchWord = state.search.trim()
 
-  if (!searchWord || !searchText.includes(searchWord)) {
-    return searchText
+  if (!searchWord) {
+    return escapeHtml(searchText)
   }
 
   const escaped = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
-  const re = new RegExp(escaped, 'ig')
+  const re = new RegExp(`(${escaped})`, 'ig')
 
-  return searchText.replace(re, (match) => {
-    return `<span style="background-color:yellow;font-weight:bold">${match}</span>`
-  })
+  return searchText
+    .split(re)
+    .map((part, i) =>
+      i % 2 === 1
+        ? `<span style="background-color:yellow;font-weight:bold">${escapeHtml(part)}</span>`
+        : escapeHtml(part)
+    )
+    .join('')
 }
 
 const sortTypes = ref<Record<string, 'asc' | 'desc'>>({})

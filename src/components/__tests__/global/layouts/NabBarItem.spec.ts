@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vite-plus/test'
 import { mount } from '@vue/test-utils'
 import NavBarItem from '../../../global/layouts/NavBarItem.vue'
 import SvgIcon from '../../../global/icons/SvgIcon.vue'
