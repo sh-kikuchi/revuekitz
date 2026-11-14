@@ -1,6 +1,6 @@
 {
   "name": "revuekitz",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "UI component library for Vue.js. I collected atomic and molecular level components based on atomic design.",
   "keywords": [
     "revuekitz",
@@ -63,14 +63,15 @@
     "@types/node": "^22.0.0",
     "@vitejs/plugin-vue": "^6.0.10",
     "@vue/test-utils": "^2.4.11",
+    "@vue/tsconfig": "^0.9.1",
     "jsdom": "^27.0.1",
     "npm-run-all2": "^9.0.3",
     "rollup": "^4.18.1",
     "typescript": "^5.8.0",
     "vite": "npm:@voidzero-dev/vite-plus-core@1.4.0",
     "vite-plugin-dts": "^5.1.2",
-    "vue-tsc": "^3.3.8",
-    "vite-plus": "1.4.0"
+    "vite-plus": "1.4.0",
+    "vue-tsc": "^3.3.8"
   },
   "overrides": {
     "brace-expansion": "^5.0.9",

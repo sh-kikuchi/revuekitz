@@ -74,7 +74,7 @@ const emit = defineEmits<{
 }>()
 const updateValue = (event: Event) => {
   const target = event.target as HTMLInputElement
-  emit('update:modelValue', target.checked ? props.item : '')
+  emit('update:modelValue', target.checked ? (props.item ?? '') : '')
   emit('update:checked', target.checked)
 }
 
@@ -88,7 +88,7 @@ watch(
 // mouted
 onMounted(() => {
   itemChecked.value = props.checked
-  emit('update:modelValue', itemChecked.value ? props.item : '')
+  emit('update:modelValue', itemChecked.value ? (props.item ?? '') : '')
 })
 </script>
 <template>

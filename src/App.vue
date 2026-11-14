@@ -148,11 +148,36 @@ const closeModal = () => {
 
 /*======DataTable:start=====*/
 const tableItems = ref([
-  { date: '2024-01-01', title: 'Title (1)', content: 'Content 1', author: 'Author 1' },
-  { date: '2024-01-02', title: 'Title 2', content: 'Content 2', author: 'Author 2' },
-  { date: '2024-01-03', title: 'Title 3', content: 'Content 3', author: 'Author 3' },
-  { date: '2024-01-04', title: 'Title 4', content: 'Content 4', author: 'Author 4' },
-  { date: '2024-01-05', title: 'Title 5', content: 'Content 5', author: 'Author 5' }
+  {
+    date: '2024-01-01',
+    title: 'Title (1)',
+    content: 'Content 1',
+    author: 'Author 1'
+  },
+  {
+    date: '2024-01-02',
+    title: 'Title 2',
+    content: 'Content 2',
+    author: 'Author 2'
+  },
+  {
+    date: '2024-01-03',
+    title: 'Title 3',
+    content: 'Content 3',
+    author: 'Author 3'
+  },
+  {
+    date: '2024-01-04',
+    title: 'Title 4',
+    content: 'Content 4',
+    author: 'Author 4'
+  },
+  {
+    date: '2024-01-05',
+    title: 'Title 5',
+    content: 'Content 5',
+    author: 'Author 5'
+  }
 ])
 const targetData = ref([])
 
@@ -171,28 +196,112 @@ interface CalendarEvent {
   row?: number
 }
 const events: CalendarEvent[] = [
-  { name: 'ミーティング', start: '2025-10-01', end: '2025-10-01', color: 'blue' },
-  { name: 'イベント', start: '2025-10-02', end: '2025-10-03', color: 'limegreen' },
-  { name: '会議', start: '2025-10-06', end: '2025-10-06', color: 'deepskyblue' },
+  {
+    name: 'ミーティング',
+    start: '2025-10-01',
+    end: '2025-10-01',
+    color: 'blue'
+  },
+  {
+    name: 'イベント',
+    start: '2025-10-02',
+    end: '2025-10-03',
+    color: 'limegreen'
+  },
+  {
+    name: '会議',
+    start: '2025-10-06',
+    end: '2025-10-06',
+    color: 'deepskyblue'
+  },
   { name: '有給', start: '2025-10-08', end: '2025-10-08', color: 'dimgray' },
   { name: '海外旅行', start: '2025-10-08', end: '2025-10-12', color: 'navy' },
   { name: '誕生日', start: '2025-10-16', end: '2025-10-16', color: 'orange' },
-  { name: 'イベント', start: '2025-10-12', end: '2025-10-15', color: 'limegreen' },
+  {
+    name: 'イベント',
+    start: '2025-10-12',
+    end: '2025-10-15',
+    color: 'limegreen'
+  },
   { name: '出張', start: '2025-10-12', end: '2025-10-13', color: 'teal' },
   { name: '客先訪問', start: '2025-10-14', end: '2025-10-14', color: 'red' },
-  { name: 'パーティ', start: '2025-10-15', end: '2025-10-15', color: 'royalblue' },
-  { name: 'ミーティング', start: '2025-10-18', end: '2025-10-19', color: 'blue' },
-  { name: 'イベント', start: '2025-10-21', end: '2025-10-21', color: 'limegreen' },
+  {
+    name: 'パーティ',
+    start: '2025-10-15',
+    end: '2025-10-15',
+    color: 'royalblue'
+  },
+  {
+    name: 'ミーティング',
+    start: '2025-10-18',
+    end: '2025-10-19',
+    color: 'blue'
+  },
+  {
+    name: 'イベント',
+    start: '2025-10-21',
+    end: '2025-10-21',
+    color: 'limegreen'
+  },
   { name: '有給2', start: '2025-10-20', end: '2025-10-20', color: 'dimgray' },
-  { name: 'イベント', start: '2025-10-25', end: '2025-10-28', color: 'limegreen' },
-  { name: '会議2', start: '2025-10-21', end: '2025-10-21', color: 'deepskyblue' },
+  {
+    name: 'イベント',
+    start: '2025-10-25',
+    end: '2025-10-28',
+    color: 'limegreen'
+  },
+  {
+    name: '会議2',
+    start: '2025-10-21',
+    end: '2025-10-21',
+    color: 'deepskyblue'
+  },
   { name: '旅行', start: '2025-10-23', end: '2025-10-24', color: 'navy' },
-  { name: 'ミーティング', start: '2025-10-28', end: '2025-10-28', color: 'blue' },
-  { name: '会議3', start: '2025-10-12', end: '2025-10-12', color: 'deepskyblue' },
+  {
+    name: 'ミーティング',
+    start: '2025-10-28',
+    end: '2025-10-28',
+    color: 'blue'
+  },
+  {
+    name: '会議3',
+    start: '2025-10-12',
+    end: '2025-10-12',
+    color: 'deepskyblue'
+  },
   { name: '誕生日', start: '2025-10-30', end: '2025-10-30', color: 'orange' }
 ]
 const selectedEvent = ref<CalendarEvent | null>(null)
 /*======EventCalendar:end=====*/
+
+/*======TreeList:start=====*/
+// テンプレートに 'https://' を直書きすると Vue Language Tools 3.3.13 が誤変換するため script 側で定義
+const treeListItems = [
+  {
+    id: '1',
+    title: 'Grandparent #1',
+    href: 'https://example.com/grandparent',
+    parents: [
+      {
+        id: '1',
+        title: 'Parent #1',
+        href: 'https://example.com/parent',
+        children: [
+          {
+            id: '1',
+            title: 'Child #1',
+            href: 'https://example.com/child',
+            items: [
+              { id: '1', title: 'Item #1', href: 'https://example.com/item1' },
+              { id: '2', title: 'Item #2', href: 'https://example.com/item2' }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+/*======TreeList:end=====*/
 </script>
 
 <template>
@@ -743,39 +852,7 @@ const selectedEvent = ref<CalendarEvent | null>(null)
               class="custom-tree-list"
               :style="{ color: 'black' }"
               :styleReset="false"
-              :grandparents="[
-                {
-                  id: '1',
-                  title: 'Grandparent #1',
-                  href: 'https://example.com/grandparent',
-                  parents: [
-                    {
-                      id: '1',
-                      title: 'Parent #1',
-                      href: 'https://example.com/parent',
-                      children: [
-                        {
-                          id: '1',
-                          title: 'Child #1',
-                          href: 'https://example.com/child',
-                          items: [
-                            {
-                              id: '1',
-                              title: 'Item #1',
-                              href: 'https://example.com/item1'
-                            },
-                            {
-                              id: '2',
-                              title: 'Item #2',
-                              href: 'https://example.com/item2'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]"
+              :grandparents="treeListItems"
             />
           </div>
         </section>

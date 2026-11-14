@@ -54,24 +54,26 @@ const bindingClass = computed(() => {
 })
 
 // define transition function
-const beforeEnter = (el: HTMLElement) => {
-  el.style.opacity = '0'
+const beforeEnter = (el: Element) => {
+  ;(el as HTMLElement).style.opacity = '0'
 }
 
-const open = (value) => {
+const open = (value: string) => {
   block.value.open = block.value.open === value ? '' : value
 }
 
-const enter = (el: HTMLElement, done: () => void) => {
-  el.getBoundingClientRect() // Trigger reflow
-  el.style.transition = 'opacity 0.5s'
-  el.style.opacity = '1'
+const enter = (el: Element, done: () => void) => {
+  const target = el as HTMLElement
+  target.getBoundingClientRect() // Trigger reflow
+  target.style.transition = 'opacity 0.5s'
+  target.style.opacity = '1'
   done()
 }
 
-const leave = (el: HTMLElement, done: () => void) => {
-  el.style.transition = 'opacity 0.5s'
-  el.style.opacity = '0'
+const leave = (el: Element, done: () => void) => {
+  const target = el as HTMLElement
+  target.style.transition = 'opacity 0.5s'
+  target.style.opacity = '0'
   done()
 }
 
